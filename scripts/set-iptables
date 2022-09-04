@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Clear iptables
+iptables -F
+iptables -X
+iptables -t nat -F
+iptables -t nat -X
+iptables -t mangle -F
+iptables -t mangle -X
+iptables -t raw -F
+iptables -t raw -X
+iptables -t security -F
+iptables -t security -X
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+
+# Set dedault politics
+iptables -P INPUT DROP
+iptables -P OUTPUT ACCEPT
+iptables -P FORWARD DROP
+
+# Allow loopback
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+
+# Allow connections establised by the user
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# tox
+iptables -A INPUT -p udp --dport 33445 -j ACCEPT
+iptables -A INPUT -p tcp --dport 33445 -j ACCEPT
+iptables -A INPUT -p tcp --dport 3389 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+# Save changes
+rc-service iptables save
