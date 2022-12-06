@@ -196,6 +196,8 @@
   (set-face-attribute 'column-enforce-face nil :foreground "#ff0000")
   (add-hook 'prog-mode-hook 'column-enforce-mode))
 
+(use-package nginx-mode)
+
 (use-package paredit
   :config
   (autoload 'enable-paredit-mode
