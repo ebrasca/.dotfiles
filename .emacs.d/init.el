@@ -116,6 +116,23 @@
   :custom
   (vterm-tramp-shells '(("docker" "/bin/zsh"))))
 
+(use-package vertico
+  :init
+  (vertico-mode)
+  :custom
+  (vertico-cycle t))
+
+(use-package vertico-directory
+  :after vertico
+  :ensure nil
+  ;; More convenient directory navigation commands
+  :bind (:map vertico-map
+              ("RET" . vertico-directory-enter)
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word))
+  ;; Tidy shadowed file names
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+
 (use-package treemacs
   :defer t
   :config
@@ -140,17 +157,6 @@
 
 (use-package treemacs-magit
   :after (treemacs magit))
-
-(use-package ido
-  :custom
-  (ido-everywhere t)
-  (ido-max-directory-size 100000)
-  (ido-mode 'both)
-  ;; Use the current window when visiting files and buffers with ido
-  (ido-default-file-method 'selected-window)
-  (ido-default-buffer-method 'selected-window)
-  ;; Use the current window for indirect buffer display
-  (org-indirect-buffer-display 'current-window))
 
 (use-package pinentry
   :hook
