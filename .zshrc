@@ -9,9 +9,10 @@ if [ -d "$ZSH" ]; then
 else
     git clone https://github.com/ohmyzsh/ohmyzsh $ZSH
     git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH/custom/plugins/zsh-autosuggestions
+    git clone https://github.com/chitoku-k/fzf-zsh-completions $ZSH/custom/plugins/fzf-zsh-completions
 fi
 
-plugins=(git zsh-autosuggestions)
+plugins=(git zsh-autosuggestions fzf-zsh-completions)
 
 source $ZSH/oh-my-zsh.sh
 
