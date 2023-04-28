@@ -133,6 +133,13 @@
   (vterm-kill-buffer-on-exit t)
   (vterm-max-scrollback 1000))
 
+(use-package multi-vterm
+  :bind (:map global-map
+              ("C-x c c" . multi-vterm)
+              ("C-x c n" . multi-vterm-next)
+              ("C-x c p" . multi-vterm-prev)
+              ("C-x c ." . multi-vterm-project)))
+
 (use-package vertico
   :init
   (vertico-mode)
