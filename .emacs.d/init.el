@@ -110,17 +110,16 @@
 
 (use-package no-littering)
 
-(use-package which-key
-  :diminish which-key-mode
-  :custom (which-key-idle-delay 0.5)
-  :config (which-key-mode))
-
 (use-package auto-package-update
   :custom
   (auto-package-update-delete-old-versions t)
   (auto-package-update-interval 4)
   :config
   (auto-package-update-maybe))
+
+(use-package pinentry
+  :hook
+  (after-init . pinentry-start))
 
 (use-package vterm
   :custom
@@ -134,6 +133,11 @@
               ("C-x c n" . multi-vterm-next)
               ("C-x c p" . multi-vterm-prev)
               ("C-x c ." . multi-vterm-project)))
+
+(use-package which-key
+  :diminish which-key-mode
+  :custom (which-key-idle-delay 0.5)
+  :config (which-key-mode))
 
 (use-package hotfuzz
   :custom
@@ -181,10 +185,6 @@
 
 (use-package treemacs-magit
   :after (treemacs magit))
-
-(use-package pinentry
-  :hook
-  (after-init . pinentry-start))
 
 (use-package git-gutter
   :config
