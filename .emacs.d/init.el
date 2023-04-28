@@ -162,6 +162,10 @@
   :hook
   (after-init . pinentry-start))
 
+(use-package git-gutter
+  :config
+  (global-git-gutter-mode +1))
+
 (use-package magit
   :custom
   (epg-pinentry-mode 'loopback)
