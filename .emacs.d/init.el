@@ -140,6 +140,10 @@
               ("C-x c p" . multi-vterm-prev)
               ("C-x c ." . multi-vterm-project)))
 
+(use-package hotfuzz
+  :custom
+  (completion-styles '(hotfuzz)))
+
 (use-package vertico
   :init
   (vertico-mode)
