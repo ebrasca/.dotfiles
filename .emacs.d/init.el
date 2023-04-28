@@ -98,11 +98,9 @@
 ;;; Load packages for specific features and modes
 ;;;-----------------------------------------------------------------------------
 
-(use-package all-the-icons
-  :ensure t)
+(use-package all-the-icons)
 
 (use-package doom-themes
-  :ensure t
   :config
   (load-theme 'doom-one t)
   (doom-themes-visual-bell-config)
@@ -110,8 +108,7 @@
   (doom-themes-org-config))
 
 (use-package doom-modeline
-  :ensure t
-  :init (doom-modeline-mode 1))
+  :custom (doom-modeline-mode t))
 
 (use-package no-littering)
 
