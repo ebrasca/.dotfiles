@@ -141,6 +141,8 @@
 
 (use-package vertico
   :custom
+  (vertico-count 10)
+  (vertico-resize nil)
   (vertico-cycle t)
   :config
   (vertico-mode))
