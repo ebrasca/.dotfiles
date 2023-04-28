@@ -129,7 +129,9 @@
 
 (use-package vterm
   :custom
-  (vterm-tramp-shells '(("docker" "/bin/zsh"))))
+  (vterm-tramp-shells '(("docker" "/bin/zsh")))
+  (vterm-kill-buffer-on-exit t)
+  (vterm-max-scrollback 1000))
 
 (use-package vertico
   :init
