@@ -39,8 +39,6 @@
 (setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
       url-history-file (expand-file-name "url/history" user-emacs-directory))
 
-;; Todo: (server-start)
-
 ;;;-----------------------------------------------------------------------------
 ;;; Open files with sudo
 ;;;-----------------------------------------------------------------------------
@@ -113,15 +111,15 @@
 (use-package no-littering)
 
 (use-package which-key
-  :init (which-key-mode)
   :diminish which-key-mode
-  :config
-  (setq which-key-idle-delay 0.5))
+  :custom (which-key-idle-delay 0.5)
+  :config (which-key-mode))
 
 (use-package auto-package-update
+  :custom
+  (auto-package-update-delete-old-versions t)
+  (auto-package-update-interval 4)
   :config
-  (setq auto-package-update-delete-old-versions t
-        auto-package-update-interval 4)
   (auto-package-update-maybe))
 
 (use-package vterm
@@ -142,10 +140,10 @@
   (completion-styles '(hotfuzz)))
 
 (use-package vertico
-  :init
-  (vertico-mode)
   :custom
-  (vertico-cycle t))
+  (vertico-cycle t)
+  :config
+  (vertico-mode))
 
 (use-package vertico-directory
   :after vertico
@@ -170,15 +168,14 @@
   (treemacs-git-commit-diff-mode t)
   (treemacs-git-mode 'simple)
   (treemacs-hide-gitignored-files-mode nil)
-  :bind
-  (:map global-map
-        ("M-0"       . treemacs-select-window)
-        ("C-x t 1"   . treemacs-delete-other-windows)
-        ("C-x t t"   . treemacs)
-        ("C-x t d"   . treemacs-select-directory)
-        ("C-x t B"   . treemacs-bookmark)
-        ("C-x t C-t" . treemacs-find-file)
-        ("C-x t M-t" . treemacs-find-tag)))
+  :bind (:map global-map
+              ("M-0"       . treemacs-select-window)
+              ("C-x t 1"   . treemacs-delete-other-windows)
+              ("C-x t t"   . treemacs)
+              ("C-x t d"   . treemacs-select-directory)
+              ("C-x t B"   . treemacs-bookmark)
+              ("C-x t C-t" . treemacs-find-file)
+              ("C-x t M-t" . treemacs-find-tag)))
 
 (use-package treemacs-magit
   :after (treemacs magit))
