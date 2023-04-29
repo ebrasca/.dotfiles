@@ -131,6 +131,9 @@
               ("C-x c p" . multi-vterm-prev)
               ("C-x c ." . multi-vterm-project)))
 
+(use-package beacon
+  :config (beacon-mode 1))
+
 (use-package which-key
   :diminish which-key-mode
   :custom (which-key-idle-delay 0.5)
