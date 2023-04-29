@@ -97,6 +97,12 @@
 
 (use-package all-the-icons)
 
+(use-package all-the-icons-completion
+  :after all-the-icons
+  :config
+  (all-the-icons-completion-mode)
+  (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup))
+
 (use-package doom-themes
   :config
   (load-theme 'doom-one t)
