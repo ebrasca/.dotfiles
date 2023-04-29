@@ -102,7 +102,6 @@
   :config
   (load-theme 'doom-one t)
   (doom-themes-visual-bell-config)
-  (doom-themes-treemacs-config)
   (doom-themes-org-config))
 
 (use-package doom-modeline
@@ -161,30 +160,6 @@
               ("M-DEL" . vertico-directory-delete-word))
   ;; Tidy shadowed file names
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
-
-(use-package treemacs
-  :defer t
-  :config
-  ;; The default width and height of the icons is 22 pixels. If you are
-  ;; using a Hi-DPI display, uncomment this to double the icon size.
-  ;;(treemacs-resize-icons 44)
-  (treemacs-follow-mode t)
-  (treemacs-filewatch-mode t)
-  (treemacs-fringe-indicator-mode 'always)
-  (treemacs-git-commit-diff-mode t)
-  (treemacs-git-mode 'simple)
-  (treemacs-hide-gitignored-files-mode nil)
-  :bind (:map global-map
-              ("M-0"       . treemacs-select-window)
-              ("C-x t 1"   . treemacs-delete-other-windows)
-              ("C-x t t"   . treemacs)
-              ("C-x t d"   . treemacs-select-directory)
-              ("C-x t B"   . treemacs-bookmark)
-              ("C-x t C-t" . treemacs-find-file)
-              ("C-x t M-t" . treemacs-find-tag)))
-
-(use-package treemacs-magit
-  :after (treemacs magit))
 
 (use-package git-gutter
   :config
