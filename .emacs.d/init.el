@@ -139,6 +139,9 @@
   :custom (which-key-idle-delay 0.5)
   :config (which-key-mode))
 
+(use-package marginalia
+  :config (marginalia-mode))
+
 (use-package hotfuzz
   :custom (completion-styles '(hotfuzz)))
 
