@@ -145,7 +145,15 @@
   (vertico-resize nil)
   (vertico-cycle t)
   :config
-  (vertico-mode))
+  (vertico-mode)
+  ;; Disable tmm-menubar
+  (keymap-global-set "<f10>" #'tmm-menubar)
+  (advice-add #'tmm-add-prompt :after #'minibuffer-hide-completions)
+  (advice-add #'ffap-menu-ask :around
+              (lambda (&rest args)
+                (cl-letf (((symbol-function #'minibuffer-completion-help)
+                           #'ignore))
+                  (apply args)))))
 
 (use-package vertico-directory
   :after vertico
