@@ -58,11 +58,11 @@
         (buffer (current-buffer))
         (name (buffer-name)))
     (if (not (and filename (file-exists-p filename)))
-        (error "Buffer '%s' is not visiting a file!" name)
-        (when (yes-or-no-p "Are you sure you want to remove this file? ")
-          (delete-file filename)
-          (kill-buffer buffer)
-          (message "File '%s' successfully removed" filename)))))
+      (error "Buffer '%s' is not visiting a file!" name)
+      (when (yes-or-no-p "Are you sure you want to remove this file? ")
+        (delete-file filename)
+        (kill-buffer buffer)
+        (message "File '%s' successfully removed" filename)))))
 
 (global-set-key (kbd "C-c k") 'delete-this-buffer-and-file)
 
@@ -89,8 +89,7 @@
 (eval-when-compile (require 'use-package))
 
 (use-package use-package
-  :config
-  (setq use-package-always-ensure t))
+  :custom (use-package-always-ensure t))
 
 ;;;-----------------------------------------------------------------------------
 ;;; Load packages for specific features and modes
@@ -117,8 +116,7 @@
   (auto-package-update-maybe))
 
 (use-package pinentry
-  :hook
-  (after-init . pinentry-start))
+  :hook (after-init . pinentry-start))
 
 (use-package vterm
   :custom
@@ -139,8 +137,7 @@
   :config (which-key-mode))
 
 (use-package hotfuzz
-  :custom
-  (completion-styles '(hotfuzz)))
+  :custom (completion-styles '(hotfuzz)))
 
 (use-package vertico
   :custom
@@ -162,8 +159,7 @@
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
 (use-package git-gutter
-  :config
-  (global-git-gutter-mode +1))
+  :config (global-git-gutter-mode +1))
 
 (use-package magit
   :custom
@@ -187,12 +183,10 @@
    'magit-insert-merge-log))
 
 (use-package magit-todos
-  :config
-  (magit-todos-mode))
+  :config (magit-todos-mode))
 
 (use-package magit-org-todos
-  :config
-  (magit-org-todos-autoinsert))
+  :config (magit-org-todos-autoinsert))
 
 (use-package column-enforce-mode
   :config
@@ -203,8 +197,7 @@
 
 (use-package paredit
   :config
-  (autoload 'enable-paredit-mode
-            "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+  (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
   (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
   (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
   (add-hook 'ielm-mode-hook #'enable-paredit-mode)
@@ -219,8 +212,7 @@
   (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit))
 
 (use-package slime
-  :init
-  (load (expand-file-name "~/quicklisp/slime-helper.el"))
+  :load-path "~/quicklisp/slime-helper.el"
   :custom
   (indent-tabs-mode nil)
   (slime-auto-select-connection 'always)
