@@ -455,3 +455,5 @@
   (global-set-key "\C-cb" 'org-iswitchb)
   ;; I use C-c c to start capture mode
   (global-set-key (kbd "C-c c") 'org-capture))
+
+(use-package org-drill)
