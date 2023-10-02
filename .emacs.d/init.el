@@ -143,6 +143,8 @@
               ("C-x c p" . multi-vterm-prev)
               ("C-x c ." . multi-vterm-project)))
 
+(use-package focus)
+
 (use-package beacon
   :config (beacon-mode 1))
 
