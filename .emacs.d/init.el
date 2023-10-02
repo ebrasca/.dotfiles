@@ -32,6 +32,12 @@
 (tool-bar-mode -1)                      ; Disable tool bar
 (scroll-bar-mode -1)                    ; Disable scroll bar
 
+(setq display-buffer-base-action
+      '((display-buffer-reuse-window
+         display-buffer-reuse-mode-window
+         display-buffer-same-window
+         display-buffer-in-previous-window)))
+
 ;; Delete trailing whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
