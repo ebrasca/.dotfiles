@@ -149,7 +149,8 @@
   :config (marginalia-mode))
 
 (use-package hotfuzz
-  :custom (completion-styles '(hotfuzz)))
+  :custom (completion-styles '(hotfuzz))
+  :config (hotfuzz-vertico-mode))
 
 (use-package vertico
   :custom
