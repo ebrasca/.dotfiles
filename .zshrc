@@ -51,6 +51,18 @@ lxc-gentoo-run(){
         echo "<<<< Exit $container"
     done
 }
+run-in-all(){
+    echo ">>>> Enter host"
+    sudo $@
+    echo "<<<< Exit host"
+    for container in $(lxc list volatile.last_state.power=RUNNING image.os=Gentoo -c n --format csv);
+    do
+        echo ">>>> Enter $container"
+        lxc exec "$container" -- "$@"
+        echo "<<<< Exit $container"
+        sleep 0.2
+    done
+}
 
 # Aliases
 
