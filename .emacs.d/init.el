@@ -369,7 +369,7 @@
   (org-agenda-skip-scheduled-if-done t)
   (org-agenda-skip-timestamp-if-done t)
   ;; org modules
-  (org-modules '(org-habit org-gnus org-irc org-contacts))
+  (org-modules '(org-habit))
   ;; Agenda Setup
   (org-directory "~/org")
   (org-default-notes-file "~/org/refile.org")
