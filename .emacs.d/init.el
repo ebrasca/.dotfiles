@@ -23,7 +23,8 @@
               ;; Disable backup files
               make-backup-files nil
               backup-inhibited t
-              native-comp-async-report-warnings-errors 'silent)
+              native-comp-async-report-warnings-errors 'silent
+              warning-minimum-level :emergency)
 (blink-cursor-mode 0)                   ; Prefer a still cursor
 (put 'downcase-region 'disabled nil)    ; Enable `downcase-region'
 (put 'upcase-region 'disabled nil)      ; Enable `upcase-region'
