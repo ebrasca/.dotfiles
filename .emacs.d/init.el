@@ -162,14 +162,6 @@
 (use-package vertico
   :config
   (vertico-mode)
-  ;; Disable tmm-menubar
-  (keymap-global-set "<f10>" #'tmm-menubar)
-  (advice-add #'tmm-add-prompt :after #'minibuffer-hide-completions)
-  (advice-add #'ffap-menu-ask :around
-              (lambda (&rest args)
-                (cl-letf (((symbol-function #'minibuffer-completion-help)
-                           #'ignore))
-                  (apply args))))
   :custom
   (vertico-count 10)
   (vertico-resize nil)
