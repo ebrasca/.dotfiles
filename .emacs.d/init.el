@@ -121,11 +121,11 @@
 (use-package no-littering)
 
 (use-package auto-package-update
+  :config
+  (auto-package-update-maybe)
   :custom
   (auto-package-update-delete-old-versions t)
-  (auto-package-update-interval 4)
-  :config
-  (auto-package-update-maybe))
+  (auto-package-update-interval 4))
 
 (use-package pinentry
   :hook (after-init . pinentry-start))
@@ -149,22 +149,17 @@
   :config (beacon-mode 1))
 
 (use-package which-key
-  :diminish which-key-mode
-  :custom (which-key-idle-delay 0.5)
-  :config (which-key-mode))
+  :config (which-key-mode)
+  :custom (which-key-idle-delay 0.5))
 
 (use-package marginalia
   :config (marginalia-mode))
 
 (use-package hotfuzz
-  :custom (completion-styles '(hotfuzz))
-  :config (hotfuzz-vertico-mode))
+  :config (hotfuzz-vertico-mode)
+  :custom (completion-styles '(hotfuzz)))
 
 (use-package vertico
-  :custom
-  (vertico-count 10)
-  (vertico-resize nil)
-  (vertico-cycle t)
   :config
   (vertico-mode)
   ;; Disable tmm-menubar
@@ -174,23 +169,30 @@
               (lambda (&rest args)
                 (cl-letf (((symbol-function #'minibuffer-completion-help)
                            #'ignore))
-                  (apply args)))))
+                  (apply args))))
+  :custom
+  (vertico-count 10)
+  (vertico-resize nil)
+  (vertico-cycle t))
 
 (use-package vertico-directory
   :after vertico
-  :ensure nil
-  ;; More convenient directory navigation commands
   :bind (:map vertico-map
               ("RET" . vertico-directory-enter)
               ("DEL" . vertico-directory-delete-char)
               ("M-DEL" . vertico-directory-delete-word))
-  ;; Tidy shadowed file names
+  :ensure nil
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
 (use-package git-gutter
   :config (global-git-gutter-mode +1))
 
 (use-package magit
+  :config
+  (magit-add-section-hook
+   'magit-status-sections-hook
+   'magit-insert-modules-overview
+   'magit-insert-merge-log)
   :custom
   (epg-pinentry-mode 'loopback)
   (git-commit-fill-column 72)
@@ -204,12 +206,7 @@
   (magit-module-sections-nested nil)
   (magit-no-confirm '(stage-all-changes unstage-all-changes))
   (magit-section-initial-visibility-alist
-   '((modules . show) (stashes . show) (unpulled . show) (unpushed . show)))
-  :config
-  (magit-add-section-hook
-   'magit-status-sections-hook
-   'magit-insert-modules-overview
-   'magit-insert-merge-log))
+   '((modules . show) (stashes . show) (unpulled . show) (unpushed . show))))
 
 (use-package magit-todos
   :config (magit-todos-mode))
@@ -272,14 +269,10 @@
     (setq str
           (string-trim
            (replace-regexp-in-string "\n+" " " str))))
-  :hook ((ercn-notify . my/erc-notify)
-         (erc-send-pre . my/erc-preprocess))
-  :custom-face
-  (erc-action-face ((t (:foreground "#8fbcbb"))))
-  (erc-error-face ((t (:foreground "#bf616a"))))
-  (erc-input-face ((t (:foreground "#ebcb8b"))))
-  (erc-notice-face ((t (:foreground "#ebcb8b"))))
-  (erc-timestamp-face ((t (:foreground "#a3be8c"))))
+  :config
+  (add-to-list 'erc-modules 'notifications)
+  (erc-services-mode 1)
+  (erc-update-modules)
   :custom
   (erc-autojoin-channels-alist '(("libera.chat"
                                   "#clim"
@@ -299,10 +292,15 @@
   (erc-server-reconnect-timeout 3)
   (erc-track-exclude-types '("JOIN" "MODE" "NICK" "PART" "QUIT"
                              "324" "329" "332" "333" "353" "477"))
-  :config
-  (add-to-list 'erc-modules 'notifications)
-  (erc-services-mode 1)
-  (erc-update-modules))
+  :custom-face
+  (erc-action-face ((t (:foreground "#8fbcbb"))))
+  (erc-error-face ((t (:foreground "#bf616a"))))
+  (erc-input-face ((t (:foreground "#ebcb8b"))))
+  (erc-notice-face ((t (:foreground "#ebcb8b"))))
+  (erc-timestamp-face ((t (:foreground "#a3be8c"))))
+  :hook
+  ((ercn-notify . my/erc-notify)
+   (erc-send-pre . my/erc-preprocess)))
 
 (use-package gnus
   :custom
