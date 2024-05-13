@@ -232,7 +232,7 @@
   (slime-load-failed-fasl 'never)
   :config
   (setq slime-lisp-implementations
-        '((sbcl ("/usr/bin/sbcl" "--dynamic-space-size" "4GB")
+        '((sbcl ("sbcl" "--dynamic-space-size" "4GB")
                 :coding-system utf-8-unix)))
   (slime-setup '(slime-mrepl
                  inferior-slime
