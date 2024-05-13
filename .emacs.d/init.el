@@ -106,9 +106,8 @@
 
 (use-package all-the-icons-completion
   :after all-the-icons
-  :config
-  (all-the-icons-completion-mode)
-  (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup))
+  :config (all-the-icons-completion-mode)
+  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup))
 
 (use-package doom-themes
   :config
@@ -219,9 +218,8 @@
   :config (magit-org-todos-autoinsert))
 
 (use-package column-enforce-mode
-  :config
-  (set-face-attribute 'column-enforce-face nil :foreground "#ff0000")
-  (add-hook 'prog-mode-hook 'column-enforce-mode))
+  :config (set-face-attribute 'column-enforce-face nil :foreground "#ff0000")
+  :hook (prog-mode . column-enforce-mode))
 
 (use-package nginx-mode)
 
@@ -243,7 +241,6 @@
   (slime-kill-without-query-p t)
   (slime-load-failed-fasl 'never)
   :config
-  (add-hook 'slime-mode-hook #'inferior-slime-mode)
   (setq slime-lisp-implementations
         '((sbcl ("/usr/bin/sbcl" "--dynamic-space-size" "4GB")
                 :coding-system utf-8-unix)))
@@ -251,7 +248,9 @@
                  inferior-slime
                  slime-asdf
                  slime-fancy
-                 slime-quicklisp)))
+                 slime-quicklisp))
+  :hook
+  (slime-mode . inferior-slime-mode))
 
 (use-package erc
   :defer 3
@@ -346,8 +345,8 @@
   (gnus-sum-thread-tree-vertical        "│")
   (gnus-sum-thread-tree-leaf-with-other "├─► ")
   (gnus-sum-thread-tree-single-leaf     "└─► ")
-  :config
-  (add-hook 'gnus-group-mode-hook 'gnus-topic-mode))
+  :hook
+  (gnus-group-mode . gnus-topic-mode))
 
 (use-package org
   :preface
