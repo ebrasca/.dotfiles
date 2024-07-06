@@ -81,6 +81,9 @@
 (setq package-archives '(("gnu-elpa" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
 
+(setq package-archive-priorities '(("gnu-elpa" . 2)
+                                   ("melpa" . 1)))
+
 (package-initialize)
 
 ;;;-----------------------------------------------------------------------------
