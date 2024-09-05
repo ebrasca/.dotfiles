@@ -1,30 +1,50 @@
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
-export ZSH=$HOME/.oh-my-zsh
+export ZSH=$HOME/.zsh
 export TERM='xterm-256color'
 export GPG_TTY=$(tty)
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=14'
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=14'
 
-# Check if .oh-my-zsh exist and if don't exist clone it + plugin
-if [ -d "$ZSH" ]; then
+#Check if zsh-autosuggestions exist and if don't exist clone it
+if [ -d "$ZSH/zsh-autosuggestions" ]; then
 else
-    git clone https://github.com/ohmyzsh/ohmyzsh $ZSH
-    git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH/custom/plugins/zsh-autosuggestions
-    git clone https://github.com/chitoku-k/fzf-zsh-completions $ZSH/custom/plugins/fzf-zsh-completions
+  git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH/zsh-autosuggestions
 fi
 
-plugins=(git zsh-autosuggestions fzf-zsh-completions)
+source $HOME/.profile
+source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-source $ZSH/oh-my-zsh.sh
+## History file configuration
+HISTFILE="$HOME/.zhistory"
+HISTSIZE=50000
+SAVEHIST=50000
 
-# Enabling Portage completions and Gentoo prompt for zsh
-autoload -U compinit promptinit
+## History command configuration
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_find_no_dups
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_verify
+setopt hist_save_no_dups
+setopt share_history
+
+# AUTOCOMPLETION
+
+# initialize autocompletion
+autoload -U compinit
 compinit
-promptinit; prompt gentoo
 
 # Enabling cache for the completions for zsh
 zstyle ':completion::complete:*' use-cache 1
 
-# Functions
+## USER PROMPT
+
+setopt PROMPT_SUBST
+NL=$'\n'
+PS1='$NL%B%F{cyan}%3~%f%b$NL%B%(?.%F{green}.%F{red})%(!.#.>)%f%b '
+
+## Functions
 
 vterm_printf(){
     if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then
@@ -37,8 +57,8 @@ vterm_printf(){
         printf "\e]%s\e\\" "$1"
     fi
 }
-web-paste-ix() {
-    cat $1 | curl -F 'f:1=<-' ix.io
+web-paste() {
+    wget --quiet -O- --post-file='$1' 'http://paste.c-net.org/'
 }
 git-pull-all(){
     find . -type d -mindepth 1 -maxdepth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull origin master \;
@@ -64,10 +84,15 @@ run-in-all(){
     done
 }
 
-# Aliases
+## Aliases
 
 alias reload=". ~/.zshrc"
 alias dl='yt-dlp'
 alias dlw='yt-dlp -f webm'
 alias ndl='yt-dlp -o "%(autonumber)s.%(title)s.%(ext)s"'
 alias ndlw='yt-dlp -f webm -o "%(autonumber)s.%(title)s.%(ext)s"'
+alias trim_all="sudo fstrim -va"
+alias ls="ls --color=auto"
+alias lsa="ls -lah --color=auto"
+alias grep='grep --color=auto'
+alias mkdir="mkdir -p"
