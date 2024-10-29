@@ -99,6 +99,8 @@
 ;;; Load packages for specific features and modes
 ;;;-----------------------------------------------------------------------------
 
+(use-package flyspell)
+
 (use-package all-the-icons)
 
 (use-package all-the-icons-completion
