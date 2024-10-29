@@ -66,7 +66,7 @@
         (buffer (current-buffer))
         (name (buffer-name)))
     (if (not (and filename (file-exists-p filename)))
-      (error "Buffer '%s' is not visiting a file!" name)
+        (error "Buffer '%s' is not visiting a file!" name)
       (when (yes-or-no-p "Are you sure you want to remove this file? ")
         (delete-file filename)
         (kill-buffer buffer)
@@ -89,8 +89,6 @@
 ;;;-----------------------------------------------------------------------------
 ;;; Load use-package
 ;;;-----------------------------------------------------------------------------
-
-(require 'use-package)
 
 (use-package use-package
   :custom (use-package-always-ensure t))
