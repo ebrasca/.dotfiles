@@ -219,7 +219,8 @@
          (sly-mode . enable-paredit-mode)))
 
 (use-package slime
-  :load-path "~/quicklisp/slime-helper.el"
+  :ensure nil
+  :init (load "~/quicklisp/slime-helper.el")
   :custom
   (indent-tabs-mode nil)
   (slime-auto-select-connection 'always)
