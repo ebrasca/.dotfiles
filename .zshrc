@@ -13,6 +13,9 @@ fi
 source $HOME/.profile
 source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+## Emacs keybindings
+bindkey -e
+
 ## History file configuration
 HISTFILE="$HOME/.zhistory"
 HISTSIZE=64000
