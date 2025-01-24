@@ -15,18 +15,14 @@ source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ## History file configuration
 HISTFILE="$HOME/.zhistory"
-HISTSIZE=50000
-SAVEHIST=50000
+HISTSIZE=64000
+SAVEHIST=32000
 
 ## History command configuration
-setopt extended_history
-setopt hist_expire_dups_first
-setopt hist_find_no_dups
-setopt hist_ignore_all_dups
 setopt hist_ignore_dups
 setopt hist_ignore_space
-setopt hist_verify
 setopt hist_save_no_dups
+setopt hist_verify
 setopt share_history
 
 # AUTOCOMPLETION
