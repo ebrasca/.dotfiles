@@ -123,6 +123,24 @@
   (nerd-icons-completion-mode)
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
 
+;; Dirvish is an improved version of the Emacs inbuilt package Dired
+(use-package dirvish
+  :init
+  (dirvish-override-dired-mode)
+  :config
+  (setq dirvish-mode-line-format '(:left (sort symlink) :right (omit yank index))
+        dirvish-mode-line-height 10
+        dirvish-attributes '(nerd-icons file-time file-size collapse subtree-state vc-state git-msg)
+        dirvish-subtree-state-style 'nerd
+        delete-by-moving-to-trash t
+        dirvish-path-separators (list
+                                 (format "  %s " (nerd-icons-codicon "nf-cod-home"))
+                                 (format "  %s " (nerd-icons-codicon "nf-cod-root_folder"))
+                                 (format " %s " (nerd-icons-faicon "nf-fa-angle_right")))
+        dired-listing-switches "-l --almost-all --human-readable --group-directories-first --no-group")
+  (dirvish-peek-mode)
+  (dirvish-side-follow-mode))
+
 (use-package doom-themes
   :config
   (load-theme 'doom-one t)
