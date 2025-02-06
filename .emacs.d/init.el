@@ -166,6 +166,9 @@
   :config (which-key-mode)
   :custom (which-key-idle-delay 0.5))
 
+(use-package vundo
+  :custom (vundo-glyph-alist vundo-unicode-symbols))
+
 (use-package marginalia
   :config (marginalia-mode))
 
