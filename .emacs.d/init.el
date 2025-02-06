@@ -1,3 +1,7 @@
+;;;-----------------------------------------------------------------------------
+;;; Basic Emacs Settings
+;;;-----------------------------------------------------------------------------
+
 (setq-default ad-redefinition-action 'accept         ; Silence warnings for redefinition
               auto-save-list-file-prefix nil         ; Prevent tracking for auto-saves
               cursor-in-non-selected-windows nil     ; Hide the cursor in inactive windows
@@ -5,7 +9,7 @@
               custom-file "/dev/null"                ; Disable customize-*
               fill-column 80                         ; Set width for automatic line breaks
               frame-resize-pixelwise t               ; Disable frame
-              gc-cons-threshold (* 8 1024 1024)      ; We're not using Game Boys anymore
+              gc-cons-threshold (* 8 1024 1024)      ; Increase garbage collection threshold
               help-window-select t                   ; Focus new help windows when opened
               indent-tabs-mode nil                   ; Stop using tabs to indent
               inhibit-startup-screen t               ; Disable start-up screen
@@ -18,21 +22,27 @@
               tab-always-indent 'complete            ; Indent first then try completions
               uniquify-buffer-name-style 'forward    ; Uniquify buffer names
               vc-follow-symlinks nil                 ; Silence warnings for following symlinked files
-              use-dialog-box nil                     ; To disable dialog windows
+              use-dialog-box nil                     ; Disable dialog windows
               use-short-answers t                    ; Replace yes/no prompts with y/n
               ;; Disable backup files
               make-backup-files nil
               backup-inhibited t
               native-comp-async-report-warnings-errors 'silent
               warning-minimum-level :emergency)
+
+;;;-----------------------------------------------------------------------------
+;;; UI Enhancements
+;;;-----------------------------------------------------------------------------
+
 (blink-cursor-mode 0)                   ; Prefer a still cursor
-(put 'downcase-region 'disabled nil)    ; Enable `downcase-region'
-(put 'upcase-region 'disabled nil)      ; Enable `upcase-region'
-(set-default-coding-systems 'utf-8)     ; Default to utf-8 encoding
 (display-time-mode 1)                   ; Enable clock
 (menu-bar-mode -1)                      ; Disable menu bar
 (tool-bar-mode -1)                      ; Disable tool bar
 (scroll-bar-mode -1)                    ; Disable scroll bar
+
+;;;-----------------------------------------------------------------------------
+;;; Buffer and Window Management
+;;;-----------------------------------------------------------------------------
 
 (setq display-buffer-base-action
       '((display-buffer-reuse-window
@@ -40,17 +50,35 @@
          display-buffer-same-window
          display-buffer-in-previous-window)))
 
-;; Delete trailing whitespace
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;;;-----------------------------------------------------------------------------
+;;; Text Editing Enhancements
+;;;-----------------------------------------------------------------------------
+
+(put 'downcase-region 'disabled nil)    ; Enable `downcase-region'
+(put 'upcase-region 'disabled nil)      ; Enable `upcase-region'
+
+;;;-----------------------------------------------------------------------------
+;;; File and Encoding Settings
+;;;-----------------------------------------------------------------------------
+
+(set-default-coding-systems 'utf-8)     ; Default to utf-8 encoding
+
+;;;-----------------------------------------------------------------------------
+;;; File and Directory Management
+;;;-----------------------------------------------------------------------------
 
 ;; Change the user-emacs-directory to keep unwanted things out of ~/.emacs.d
 (setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
       url-history-file (expand-file-name "url/history" user-emacs-directory))
 
+;; Delete trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;;;-----------------------------------------------------------------------------
-;;; Open files with sudo
+;;; Custom Functions
 ;;;-----------------------------------------------------------------------------
 
+;; Open files with sudo
 (defun sudo-find-file (file-name)
   "Like find file, but opens the file as root."
   (interactive "FSudo Find File: ")
@@ -59,6 +87,7 @@
 
 (global-set-key (kbd "C-x C-r") 'sudo-find-file)
 
+;; Delete buffer and file
 (defun delete-this-buffer-and-file ()
   "Removes file connected to current buffer and kills buffer."
   (interactive)
@@ -104,11 +133,21 @@
   (use-package-verbose t))
 
 ;;;-----------------------------------------------------------------------------
-;;; Load packages for specific features and modes
+;;; UI and Visual Enhancements
 ;;;-----------------------------------------------------------------------------
 
-(use-package flyspell)
+;; Themes
+(use-package doom-themes
+  :config
+  (load-theme 'doom-one t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config))
 
+;; Modeline
+(use-package doom-modeline
+  :custom (doom-modeline-mode t))
+
+;; Icons
 (use-package nerd-icons)
 
 (use-package nerd-icons-dired
@@ -123,7 +162,18 @@
   (nerd-icons-completion-mode)
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
 
-;; Dirvish is an improved version of the Emacs inbuilt package Dired
+;; Cursor highlighting when switching buffers
+(use-package beacon
+  :config (beacon-mode 1))
+
+;; Dim inactive text)
+(use-package focus)
+
+;;;-----------------------------------------------------------------------------
+;;; File and Directory Management
+;;;-----------------------------------------------------------------------------
+
+;; Enhanced Dired
 (use-package dirvish
   :init
   (dirvish-override-dired-mode)
@@ -141,17 +191,14 @@
   (dirvish-peek-mode)
   (dirvish-side-follow-mode))
 
-(use-package doom-themes
-  :config
-  (load-theme 'doom-one t)
-  (doom-themes-visual-bell-config)
-  (doom-themes-org-config))
-
-(use-package doom-modeline
-  :custom (doom-modeline-mode t))
-
+;; Clean up Emacs config directory
 (use-package no-littering)
 
+;;;-----------------------------------------------------------------------------
+;;; Package Management
+;;;-----------------------------------------------------------------------------
+
+;; Auto update packages
 (use-package auto-package-update
   :config
   (auto-package-update-maybe)
@@ -159,9 +206,11 @@
   (auto-package-update-delete-old-versions t)
   (auto-package-update-interval 4))
 
-(use-package pinentry
-  :hook (after-init . pinentry-start))
+;;;-----------------------------------------------------------------------------
+;;; Terminal and Shell Integration
+;;;-----------------------------------------------------------------------------
 
+;; Terminal emulation
 (use-package vterm
   :custom
   (vterm-tramp-shells '(("docker" "/bin/zsh")))
@@ -175,24 +224,11 @@
               ("C-x c p" . multi-vterm-prev)
               ("C-x c ." . multi-vterm-project)))
 
-(use-package focus)
+;;;-----------------------------------------------------------------------------
+;;; Completion and Minibuffer Enhancements
+;;;-----------------------------------------------------------------------------
 
-(use-package beacon
-  :config (beacon-mode 1))
-
-(use-package which-key
-  :config (which-key-mode)
-  :custom (which-key-idle-delay 0.5))
-
-(use-package vundo
-  :custom (vundo-glyph-alist vundo-unicode-symbols))
-
-(use-package marginalia
-  :config (marginalia-mode))
-
-(use-package hotfuzz
-  :custom (completion-styles '(hotfuzz)))
-
+;; Minibuffer completion
 (use-package vertico
   :config
   (vertico-mode)
@@ -210,13 +246,28 @@
   :straight nil
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
-(use-package geiser-guile)
+;; Minibuffer annotations
+(use-package marginalia
+  :config (marginalia-mode))
 
-(use-package guix)
+;; Fuzzy completion
+(use-package hotfuzz
+  :custom (completion-styles '(hotfuzz)))
 
+;; Keybinding suggestions
+(use-package which-key
+  :config (which-key-mode)
+  :custom (which-key-idle-delay 0.5))
+
+;;;-----------------------------------------------------------------------------
+;;; Version Control
+;;;-----------------------------------------------------------------------------
+
+;; Shows Git diff indicators in the margin
 (use-package git-gutter
   :config (global-git-gutter-mode +1))
 
+;; A comprehensive Git interface
 (use-package magit
   :config
   (magit-add-section-hook
@@ -238,21 +289,23 @@
   (magit-section-initial-visibility-alist
    '((modules . show) (stashes . show) (unpulled . show) (unpushed . show))))
 
+;; Integrates TODO items with Magit
 (use-package magit-todos
   :config (magit-todos-mode))
 
+;; Integrates Org-mode TODOs with Magit
 (use-package magit-org-todos
   :config (magit-org-todos-autoinsert))
 
+;; Integrates GitHub/GitLab with Magit
 (use-package forge
   :after magit)
 
-(use-package column-enforce-mode
-  :config (set-face-attribute 'column-enforce-face nil :foreground "#ff0000")
-  :hook (prog-mode . column-enforce-mode))
+;;;-----------------------------------------------------------------------------
+;;; Programming and Development
+;;;-----------------------------------------------------------------------------
 
-(use-package nginx-mode)
-
+;; Structured editing for Lisp
 (use-package paredit
   :hook ((emacs-lisp-mode . enable-paredit-mode)
          (eval-expression-minibuffer-setup . enable-paredit-mode)
@@ -263,6 +316,7 @@
          (slime-repl-mode . enable-paredit-mode)
          (sly-mode . enable-paredit-mode)))
 
+;; Common Lisp IDE
 (use-package slime
   :straight nil
   :init (load "~/quicklisp/slime-helper.el")
@@ -283,6 +337,25 @@
   :hook
   (slime-mode . inferior-slime-mode))
 
+;; Guile Scheme IDE
+(use-package geiser-guile)
+
+;; Guix package manager
+(use-package guix)
+
+;; Nginx mode
+(use-package nginx-mode)
+
+;; Column enforcement
+(use-package column-enforce-mode
+  :config (set-face-attribute 'column-enforce-face nil :foreground "#ff0000")
+  :hook (prog-mode . column-enforce-mode))
+
+;;;-----------------------------------------------------------------------------
+;;; Communication
+;;;-----------------------------------------------------------------------------
+
+;; IRC client
 (use-package erc
   :defer 3
   :delight "ε "
@@ -336,6 +409,7 @@
   ((ercn-notify . my/erc-notify)
    (erc-send-pre . my/erc-preprocess)))
 
+;; Email and news reader
 (use-package gnus
   :custom
   (user-mail-address "ebrasca@librepanther.com")
@@ -380,6 +454,11 @@
   :hook
   (gnus-group-mode . gnus-topic-mode))
 
+;;;-----------------------------------------------------------------------------
+;;; Org-Mode and Productivity
+;;;-----------------------------------------------------------------------------
+
+;; Org mode
 (use-package org
   :preface
   (defun bh/verify-refile-target ()
@@ -482,4 +561,20 @@
   ;; I use C-c c to start capture mode
   (global-set-key (kbd "C-c c") 'org-capture))
 
+;; Spaced repetition learning
 (use-package org-drill)
+
+;;;-----------------------------------------------------------------------------
+;;; Miscellaneous
+;;;-----------------------------------------------------------------------------
+
+;; Spell checking
+(use-package flyspell)
+
+;; Handles GPG passphrase entry
+(use-package pinentry
+  :hook (after-init . pinentry-start))
+
+;; Undo tree
+(use-package vundo
+  :custom (vundo-glyph-alist vundo-unicode-symbols))
