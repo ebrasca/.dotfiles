@@ -109,12 +109,19 @@
 
 (use-package flyspell)
 
-(use-package all-the-icons)
+(use-package nerd-icons)
 
-(use-package all-the-icons-completion
-  :after all-the-icons
-  :config (all-the-icons-completion-mode)
-  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup))
+(use-package nerd-icons-dired
+  :hook (dired-mode . nerd-icons-dired-mode))
+
+(use-package nerd-icons-ibuffer
+  :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
+
+(use-package nerd-icons-completion
+  :after marginalia
+  :config
+  (nerd-icons-completion-mode)
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
 
 (use-package doom-themes
   :config
