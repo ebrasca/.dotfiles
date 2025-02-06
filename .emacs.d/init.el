@@ -30,6 +30,7 @@
 (put 'upcase-region 'disabled nil)      ; Enable `upcase-region'
 (set-default-coding-systems 'utf-8)     ; Default to utf-8 encoding
 (load-theme 'misterioso)                ; Load theme
+(display-time-mode 1)                   ; Enable clock
 (menu-bar-mode -1)                      ; Disable menu bar
 (tool-bar-mode -1)                      ; Disable tool bar
 (scroll-bar-mode -1)                    ; Disable scroll bar
