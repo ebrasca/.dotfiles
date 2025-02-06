@@ -192,6 +192,10 @@
   :straight nil
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
+(use-package geiser-guile)
+
+(use-package guix)
+
 (use-package git-gutter
   :config (global-git-gutter-mode +1))
 
