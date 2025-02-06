@@ -226,6 +226,9 @@
 (use-package magit-org-todos
   :config (magit-org-todos-autoinsert))
 
+(use-package forge
+  :after magit)
+
 (use-package column-enforce-mode
   :config (set-face-attribute 'column-enforce-face nil :foreground "#ff0000")
   :hook (prog-mode . column-enforce-mode))
