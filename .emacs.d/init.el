@@ -75,23 +75,33 @@
 (global-set-key (kbd "C-c k") 'delete-this-buffer-and-file)
 
 ;;;-----------------------------------------------------------------------------
-;;; Set repos
+;;; Package Management
 ;;;-----------------------------------------------------------------------------
 
-(setq package-archives '(("gnu-elpa" . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")))
+;; Bootstrap straight.el
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-(setq package-archive-priorities '(("gnu-elpa" . 2)
-                                   ("melpa" . 1)))
+(setq straight-use-package-by-default t)
 
-(package-initialize)
-
-;;;-----------------------------------------------------------------------------
-;;; Load use-package
-;;;-----------------------------------------------------------------------------
-
+;; Load use-package
 (use-package use-package
-  :custom (use-package-always-ensure t))
+  :custom
+  (straight-use-package-by-default t)
+  (use-package-verbose t))
 
 ;;;-----------------------------------------------------------------------------
 ;;; Load packages for specific features and modes
@@ -169,7 +179,7 @@
               ("RET" . vertico-directory-enter)
               ("DEL" . vertico-directory-delete-char)
               ("M-DEL" . vertico-directory-delete-word))
-  :ensure nil
+  :straight nil
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
 (use-package git-gutter
@@ -219,7 +229,7 @@
          (sly-mode . enable-paredit-mode)))
 
 (use-package slime
-  :ensure nil
+  :straight nil
   :init (load "~/quicklisp/slime-helper.el")
   :custom
   (indent-tabs-mode nil)
