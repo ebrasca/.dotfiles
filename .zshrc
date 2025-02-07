@@ -127,3 +127,4 @@ alias ls="ls --color=auto"
 alias lsa="ls -lah --color=auto"
 alias grep='grep --color=auto'
 alias mkdir="mkdir -p"
+alias screen="screen -h 1024"
