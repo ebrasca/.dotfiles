@@ -80,7 +80,7 @@
 
 ;; Open files with sudo
 (defun sudo-find-file (file-name)
-  "Like find file, but opens the file as root."
+  "Open FILE-NAME as root."
   (interactive "FSudo Find File: ")
   (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
     (find-file tramp-file-name)))
@@ -89,7 +89,7 @@
 
 ;; Delete buffer and file
 (defun delete-this-buffer-and-file ()
-  "Removes file connected to current buffer and kills buffer."
+  "Remove file connected to current buffer and kill buffer."
   (interactive)
   (let ((filename (buffer-file-name))
         (buffer (current-buffer))
