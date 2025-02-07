@@ -108,6 +108,16 @@ run-in-all() {
     done
 }
 
+# Update system configuration using Guix
+update-system() {
+    sudo -E guix system -L ~/.dotfiles reconfigure ~/.dotfiles/config/systems/$(hostname).scm
+}
+
+# Update home configuration using Guix
+update-home() {
+    guix home -L ~/.dotfiles reconfigure ~/.dotfiles/config/home/home-config.scm
+}
+
 # ======================
 # Aliases
 # ======================
