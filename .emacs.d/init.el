@@ -164,7 +164,7 @@
 
 ;; Cursor highlighting when switching buffers
 (use-package beacon
-  :config (beacon-mode 1))
+  :config (beacon-mode t))
 
 ;; Dim inactive text)
 (use-package focus)
@@ -187,9 +187,9 @@
         dirvish-subtree-state-style 'nerd
         delete-by-moving-to-trash t
         dirvish-path-separators (list
-                                 (format "  %s " (nerd-icons-codicon "nf-cod-home"))
-                                 (format "  %s " (nerd-icons-codicon "nf-cod-root_folder"))
-                                 (format " %s " (nerd-icons-faicon "nf-fa-angle_right")))
+                                 (format " %s " (nerd-icons-codicon "nf-cod-home"))
+                                 (format " %s " (nerd-icons-codicon "nf-cod-root_folder"))
+                                 (format " %s " (nerd-icons-faicon  "nf-fa-angle_right")))
         dired-listing-switches "-l --almost-all --human-readable --group-directories-first --no-group")
   (dirvish-peek-mode)
   (dirvish-side-follow-mode))
@@ -243,8 +243,8 @@
 (use-package vertico-directory
   :after vertico
   :bind (:map vertico-map
-              ("RET" . vertico-directory-enter)
-              ("DEL" . vertico-directory-delete-char)
+              ("RET"   . vertico-directory-enter)
+              ("DEL"   . vertico-directory-delete-char)
               ("M-DEL" . vertico-directory-delete-word))
   :straight nil
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
@@ -268,7 +268,7 @@
 
 ;; Shows Git diff indicators in the margin
 (use-package git-gutter
-  :config (global-git-gutter-mode +1))
+  :config (global-git-gutter-mode t))
 
 ;; A comprehensive Git interface
 (use-package magit
@@ -310,14 +310,14 @@
 
 ;; Structured editing for Lisp
 (use-package paredit
-  :hook ((emacs-lisp-mode . enable-paredit-mode)
-         (eval-expression-minibuffer-setup . enable-paredit-mode)
-         (ielm-mode . enable-paredit-mode)
-         (lisp-interaction-mode . enable-paredit-mode)
-         (lisp-mode . enable-paredit-mode)
-         (scheme-mode . enable-paredit-mode)
-         (slime-repl-mode . enable-paredit-mode)
-         (sly-mode . enable-paredit-mode)))
+  :hook ((emacs-lisp-mode                  . paredit-mode)
+         (eval-expression-minibuffer-setup . paredit-mode)
+         (ielm-mode                        . paredit-mode)
+         (lisp-interaction-mode            . paredit-mode)
+         (lisp-mode                        . paredit-mode)
+         (scheme-mode                      . paredit-mode)
+         (slime-repl-mode                  . paredit-mode)
+         (sly-mode                         . paredit-mode)))
 
 ;; Common Lisp IDE
 (use-package slime
@@ -361,7 +361,6 @@
 ;; IRC client
 (use-package erc
   :defer 3
-  :delight "ε "
   :preface
   (require 'subr-x)
   (defun my/erc-notify (nickname message)
@@ -403,10 +402,10 @@
   (erc-track-exclude-types '("JOIN" "MODE" "NICK" "PART" "QUIT"
                              "324" "329" "332" "333" "353" "477"))
   :custom-face
-  (erc-action-face ((t (:foreground "#8fbcbb"))))
-  (erc-error-face ((t (:foreground "#bf616a"))))
-  (erc-input-face ((t (:foreground "#ebcb8b"))))
-  (erc-notice-face ((t (:foreground "#ebcb8b"))))
+  (erc-action-face    ((t (:foreground "#8fbcbb"))))
+  (erc-error-face     ((t (:foreground "#bf616a"))))
+  (erc-input-face     ((t (:foreground "#ebcb8b"))))
+  (erc-notice-face    ((t (:foreground "#ebcb8b"))))
   (erc-timestamp-face ((t (:foreground "#a3be8c"))))
   :hook
   ((ercn-notify . my/erc-notify)
@@ -420,9 +419,9 @@
   ;; imaps
   (gnus-select-method
    '(nnimap "librepanther"
-     (nnimap-address "imap.librepanther.com")
-     (nnimap-server-port 993)
-     (nnimap-stream ssl)))
+            (nnimap-address "imap.librepanther.com")
+            (nnimap-server-port 993)
+            (nnimap-stream ssl)))
   ;; smtp
   (smtpmail-smtp-server "smtp.librepanther.com")
   (smtpmail-smtp-service 25)
@@ -440,9 +439,9 @@
   ;; Archived Messages
   (gnus-message-archive-method
    '(nnfolder "archive"
-     (nnfolder-inhibit-expiry t)
-     (nnfolder-active-file "~/News/sent-mail/active")
-     (nnfolder-directory "~/News/sent-mail/")))
+              (nnfolder-inhibit-expiry t)
+              (nnfolder-active-file "~/News/sent-mail/active")
+              (nnfolder-directory "~/News/sent-mail/")))
   ;; Tree view for groups.
   (gnus-summary-line-format
    "%U%R%z %((%4,4k) %&user-date; %-32,32f %* %B%S%)\n")
@@ -463,6 +462,7 @@
 
 ;; Org mode
 (use-package org
+  :straight nil
   :preface
   (defun bh/verify-refile-target ()
     "Exclude todo keywords with a done state from refile targets"
@@ -495,15 +495,15 @@
      (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)"
                "PHONE" "MEETING")))
   (org-todo-keyword-faces
-   '(("PROJECT" :foreground "red" :weight bold)
-     ("TODO" :foreground "red" :weight bold)
-     ("NEXT" :foreground "blue" :weight bold)
-     ("DONE" :foreground "forest green" :weight bold)
-     ("WAITING" :foreground "orange" :weight bold)
-     ("HOLD" :foreground "magenta" :weight bold)
+   '(("PROJECT"   :foreground "red"          :weight bold)
+     ("TODO"      :foreground "red"          :weight bold)
+     ("NEXT"      :foreground "blue"         :weight bold)
+     ("DONE"      :foreground "forest green" :weight bold)
+     ("WAITING"   :foreground "orange"       :weight bold)
+     ("HOLD"      :foreground "magenta"      :weight bold)
      ("CANCELLED" :foreground "forest green" :weight bold)
-     ("PHONE" :foreground "forest green" :weight bold)
-     ("MEETING" :foreground "forest green" :weight bold)))
+     ("PHONE"     :foreground "forest green" :weight bold)
+     ("MEETING"   :foreground "forest green" :weight bold)))
   ;; Capture templates
   (org-capture-templates
    '(("t" "todo" entry (file "~/org/refile.org")
@@ -539,7 +539,7 @@
   :END:")))
   ;; Targets include this file and any file contributing to the agenda -
   ;; up to 9 levels deep
-  (org-refile-targets '((nil :maxlevel . 9)
+  (org-refile-targets '((nil              :maxlevel . 9)
                         (org-agenda-files :maxlevel . 9)))
   ;; Refile settings
   ;; Exclude DONE state tasks from refile targets
