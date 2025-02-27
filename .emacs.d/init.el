@@ -169,6 +169,9 @@
 ;; Dim inactive text)
 (use-package focus)
 
+;; Distraction-free writing mode
+(use-package writeroom-mode)
+
 ;;;-----------------------------------------------------------------------------
 ;;; File and Directory Management
 ;;;-----------------------------------------------------------------------------
