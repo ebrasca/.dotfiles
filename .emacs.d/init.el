@@ -462,14 +462,10 @@
 
 ;; Org mode
 (use-package org
-  :straight nil
-  :preface
-  (defun bh/verify-refile-target ()
-    "Exclude todo keywords with a done state from refile targets"
-    (not (member (nth 2 (org-heading-components)) org-done-keywords)))
   :custom
+  ;; Clocking Work Time
   (org-clock-persist 'history)
-  ;; log
+  ;; Log
   (org-log-into-drawer t)
   (org-log-done 'time)
   (org-log-reschedule 'logreschedule)
@@ -482,7 +478,7 @@
   (org-agenda-skip-deadline-if-done t)
   (org-agenda-skip-scheduled-if-done t)
   (org-agenda-skip-timestamp-if-done t)
-  ;; org modules
+  ;; Org modules
   (org-modules '(org-habit))
   ;; Agenda Setup
   (org-directory "~/org")
@@ -490,13 +486,11 @@
   (org-agenda-files '("~/org/todo.org"))
   ;; Task States
   (org-todo-keywords
-   '((sequence "PROJECT(p)" "TODO(t)"
-               "NEXT(n)" "|" "DONE(d)")
-     (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)"
-               "PHONE" "MEETING")))
+   '((sequence "TODO(t)" "NEXT(n)" "DONE(d)")
+     (sequence "WAITING(w)" "HOLD(h)" "CANCELLED(c)"
+               "PHONE(p)" "MEETING(m)")))
   (org-todo-keyword-faces
-   '(("PROJECT"   :foreground "red"          :weight bold)
-     ("TODO"      :foreground "red"          :weight bold)
+   '(("TODO"      :foreground "red"          :weight bold)
      ("NEXT"      :foreground "blue"         :weight bold)
      ("DONE"      :foreground "forest green" :weight bold)
      ("WAITING"   :foreground "orange"       :weight bold)
@@ -541,9 +535,6 @@
   ;; up to 9 levels deep
   (org-refile-targets '((nil              :maxlevel . 9)
                         (org-agenda-files :maxlevel . 9)))
-  ;; Refile settings
-  ;; Exclude DONE state tasks from refile targets
-  (org-refile-target-verify-function 'bh/verify-refile-target)
   ;; Use full outline paths for refile targets - we file directly with IDO
   (org-refile-use-outline-path t)
   ;; Targets complete directly with IDO
@@ -553,9 +544,7 @@
   ;; Use IDO for both buffer and file completion
   (org-completion-use-ido t)
   :config
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((lisp . t)))
+  ;; Clocking Work Time
   (org-clock-persistence-insinuate)
   ;; Standard key bindings
   (global-set-key "\C-cl" 'org-store-link)
@@ -565,7 +554,8 @@
   (global-set-key (kbd "C-c c") 'org-capture))
 
 ;; Spaced repetition learning
-(use-package org-drill)
+(use-package org-drill
+  :after org)
 
 ;;;-----------------------------------------------------------------------------
 ;;; Miscellaneous
