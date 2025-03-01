@@ -133,6 +133,107 @@
   (use-package-verbose t))
 
 ;;;-----------------------------------------------------------------------------
+;;; Org-Mode and Productivity
+;;;-----------------------------------------------------------------------------
+
+;; Org mode
+(use-package org
+  :custom
+  ;; Clocking Work Time
+  (org-clock-persist 'history)
+  ;; Log
+  (org-log-into-drawer t)
+  (org-log-done 'time)
+  (org-log-reschedule 'logreschedule)
+  (org-deadline-warning-days 30)
+  (org-enforce-todo-dependencies t)
+  (org-agenda-todo-ignore-with-date nil)
+  (org-agenda-todo-ignore-deadlines nil)
+  (org-agenda-todo-ignore-scheduled nil)
+  (org-agenda-todo-ignore-timestamp nil)
+  (org-agenda-skip-deadline-if-done t)
+  (org-agenda-skip-scheduled-if-done t)
+  (org-agenda-skip-timestamp-if-done t)
+  ;; Org modules
+  (org-modules '(org-habit))
+  ;; Agenda Setup
+  (org-directory "~/org")
+  (org-default-notes-file "~/org/refile.org")
+  (org-agenda-files '("~/org/todo.org"))
+  ;; Task States
+  (org-todo-keywords
+   '((sequence "TODO(t)" "NEXT(n)" "DONE(d)")
+     (sequence "WAITING(w)" "HOLD(h)" "CANCELLED(c)"
+               "PHONE(p)" "MEETING(m)")))
+  (org-todo-keyword-faces
+   '(("TODO"      :foreground "red"          :weight bold)
+     ("NEXT"      :foreground "blue"         :weight bold)
+     ("DONE"      :foreground "forest green" :weight bold)
+     ("WAITING"   :foreground "orange"       :weight bold)
+     ("HOLD"      :foreground "magenta"      :weight bold)
+     ("CANCELLED" :foreground "forest green" :weight bold)
+     ("PHONE"     :foreground "forest green" :weight bold)
+     ("MEETING"   :foreground "forest green" :weight bold)))
+  ;; Capture templates
+  (org-capture-templates
+   '(("t" "todo" entry (file "~/org/refile.org")
+      "* TODO %?\n" :clock-in t :clock-resume t)
+     ("r" "respond" entry (file "~/org/refile.org")
+      "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n"
+      :clock-in t :clock-resume t :immediate-finish t)
+     ("n" "note" entry (file "~/org/refile.org")
+      "* %?" :clock-in t :clock-resume t)
+     ("j" "Journal" entry (file+datetree "~/org/diary.org")
+      "* %?\n" :clock-in t :clock-resume t)
+     ("w" "org-protocol" entry (file "~/org/refile.org")
+      "* TODO Review %c\n%U\n" :immediate-finish t)
+     ("m" "Meeting" entry (file "~/org/refile.org")
+      "* MEETING with %?" :clock-in t :clock-resume t)
+     ("p" "Phone call" entry (file "~/org/refile.org")
+      "* PHONE %?" :clock-in t :clock-resume t)
+     ("h" "Habit" entry (file "~/org/refile.org")
+      "* NEXT %?
+  %U
+  SCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")
+  :LOGBOOK:
+  :END:
+  :PROPERTIES:
+  :STYLE: habit
+  :REPEAT_TO_STATE: NEXT
+  :END:")
+     ("c" "Contacts" entry (file "~/org/contacts.org")
+      "* Contact
+  :PROPERTIES:
+  :NAME:
+  :EMAIL:
+  :END:")))
+  ;; Targets include this file and any file contributing to the agenda -
+  ;; up to 9 levels deep
+  (org-refile-targets '((nil              :maxlevel . 9)
+                        (org-agenda-files :maxlevel . 9)))
+  ;; Use full outline paths for refile targets - we file directly with IDO
+  (org-refile-use-outline-path t)
+  ;; Targets complete directly with IDO
+  (org-outline-path-complete-in-steps nil)
+  ;; Allow refile to create parent tasks with confirmation
+  (org-refile-allow-creating-parent-nodes 'confirm)
+  ;; Use IDO for both buffer and file completion
+  (org-completion-use-ido t)
+  :config
+  ;; Clocking Work Time
+  (org-clock-persistence-insinuate)
+  ;; Standard key bindings
+  (global-set-key "\C-cl" 'org-store-link)
+  (global-set-key "\C-ca" 'org-agenda)
+  (global-set-key "\C-cb" 'org-iswitchb)
+  ;; I use C-c c to start capture mode
+  (global-set-key (kbd "C-c c") 'org-capture))
+
+;; Spaced repetition learning
+(use-package org-drill
+  :after org)
+
+;;;-----------------------------------------------------------------------------
 ;;; UI and Visual Enhancements
 ;;;-----------------------------------------------------------------------------
 
@@ -455,107 +556,6 @@
   (gnus-sum-thread-tree-single-leaf     "└─► ")
   :hook
   (gnus-group-mode . gnus-topic-mode))
-
-;;;-----------------------------------------------------------------------------
-;;; Org-Mode and Productivity
-;;;-----------------------------------------------------------------------------
-
-;; Org mode
-(use-package org
-  :custom
-  ;; Clocking Work Time
-  (org-clock-persist 'history)
-  ;; Log
-  (org-log-into-drawer t)
-  (org-log-done 'time)
-  (org-log-reschedule 'logreschedule)
-  (org-deadline-warning-days 30)
-  (org-enforce-todo-dependencies t)
-  (org-agenda-todo-ignore-with-date nil)
-  (org-agenda-todo-ignore-deadlines nil)
-  (org-agenda-todo-ignore-scheduled nil)
-  (org-agenda-todo-ignore-timestamp nil)
-  (org-agenda-skip-deadline-if-done t)
-  (org-agenda-skip-scheduled-if-done t)
-  (org-agenda-skip-timestamp-if-done t)
-  ;; Org modules
-  (org-modules '(org-habit))
-  ;; Agenda Setup
-  (org-directory "~/org")
-  (org-default-notes-file "~/org/refile.org")
-  (org-agenda-files '("~/org/todo.org"))
-  ;; Task States
-  (org-todo-keywords
-   '((sequence "TODO(t)" "NEXT(n)" "DONE(d)")
-     (sequence "WAITING(w)" "HOLD(h)" "CANCELLED(c)"
-               "PHONE(p)" "MEETING(m)")))
-  (org-todo-keyword-faces
-   '(("TODO"      :foreground "red"          :weight bold)
-     ("NEXT"      :foreground "blue"         :weight bold)
-     ("DONE"      :foreground "forest green" :weight bold)
-     ("WAITING"   :foreground "orange"       :weight bold)
-     ("HOLD"      :foreground "magenta"      :weight bold)
-     ("CANCELLED" :foreground "forest green" :weight bold)
-     ("PHONE"     :foreground "forest green" :weight bold)
-     ("MEETING"   :foreground "forest green" :weight bold)))
-  ;; Capture templates
-  (org-capture-templates
-   '(("t" "todo" entry (file "~/org/refile.org")
-      "* TODO %?\n" :clock-in t :clock-resume t)
-     ("r" "respond" entry (file "~/org/refile.org")
-      "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n"
-      :clock-in t :clock-resume t :immediate-finish t)
-     ("n" "note" entry (file "~/org/refile.org")
-      "* %?" :clock-in t :clock-resume t)
-     ("j" "Journal" entry (file+datetree "~/org/diary.org")
-      "* %?\n" :clock-in t :clock-resume t)
-     ("w" "org-protocol" entry (file "~/org/refile.org")
-      "* TODO Review %c\n%U\n" :immediate-finish t)
-     ("m" "Meeting" entry (file "~/org/refile.org")
-      "* MEETING with %?" :clock-in t :clock-resume t)
-     ("p" "Phone call" entry (file "~/org/refile.org")
-      "* PHONE %?" :clock-in t :clock-resume t)
-     ("h" "Habit" entry (file "~/org/refile.org")
-      "* NEXT %?
-  %U
-  SCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")
-  :LOGBOOK:
-  :END:
-  :PROPERTIES:
-  :STYLE: habit
-  :REPEAT_TO_STATE: NEXT
-  :END:")
-     ("c" "Contacts" entry (file "~/org/contacts.org")
-      "* Contact
-  :PROPERTIES:
-  :NAME:
-  :EMAIL:
-  :END:")))
-  ;; Targets include this file and any file contributing to the agenda -
-  ;; up to 9 levels deep
-  (org-refile-targets '((nil              :maxlevel . 9)
-                        (org-agenda-files :maxlevel . 9)))
-  ;; Use full outline paths for refile targets - we file directly with IDO
-  (org-refile-use-outline-path t)
-  ;; Targets complete directly with IDO
-  (org-outline-path-complete-in-steps nil)
-  ;; Allow refile to create parent tasks with confirmation
-  (org-refile-allow-creating-parent-nodes 'confirm)
-  ;; Use IDO for both buffer and file completion
-  (org-completion-use-ido t)
-  :config
-  ;; Clocking Work Time
-  (org-clock-persistence-insinuate)
-  ;; Standard key bindings
-  (global-set-key "\C-cl" 'org-store-link)
-  (global-set-key "\C-ca" 'org-agenda)
-  (global-set-key "\C-cb" 'org-iswitchb)
-  ;; I use C-c c to start capture mode
-  (global-set-key (kbd "C-c c") 'org-capture))
-
-;; Spaced repetition learning
-(use-package org-drill
-  :after org)
 
 ;;;-----------------------------------------------------------------------------
 ;;; Miscellaneous
