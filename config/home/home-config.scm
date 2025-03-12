@@ -1,0 +1,108 @@
+(define-module (config home home-config)
+  #:use-module (gnu)
+  #:use-module (gnu home)
+  #:use-module (gnu home services desktop)
+  #:use-module (gnu home services gnupg)
+  #:use-module (gnu home services guix)
+  #:use-module (gnu home services shells)
+  #:use-module (gnu home services sound)
+  #:use-module (gnu packages gnupg)
+  #:use-module (guix channels))
+
+(home-environment
+ (packages
+  (specifications->packages
+   (list
+    ;; Wayland related:
+    "grim"
+    "pipewire"
+    "pulsemixer"
+    "qpwgraph"
+    "slurp"
+    "sway"
+    "swaynotificationcenter"
+    "wofi"
+    "xdg-desktop-portal"
+    "xdg-desktop-portal-wlr"
+    ;; Browsers and Media Players:
+    "feh"
+    "ffmpegthumbnailer"
+    "imagemagick"
+    "librewolf"
+    "mediainfo"
+    "mpv"
+    "nyxt"
+    "poppler"
+    ;; Creative Software:
+    "krita"
+    "obs"
+    "obs-vkcapture"
+    "obs-wlrobs"
+    ;; Communication:
+    ;; "gajim"
+    "qtox"
+    ;; Gaming:
+    "steam"
+    ;; Development:
+    "cmake"
+    "emacs-pgtk"
+    "gcc-toolchain"
+    "git"
+    "libvterm"
+    "make"
+    "openssl"
+    "pinentry-emacs"
+    "sbcl"
+    ;; Virtualization:
+    "qemu"
+    ;; Networking:
+    "nmap"
+    "openssh"
+    "sshfs"
+    "tigervnc-client"
+    "wireshark"
+    ;; Terminal Utilities:
+    "alacritty"
+    "gnupg"
+    "htop"
+    "neofetch"
+    "p7zip"
+    "passff-host"
+    "password-store"
+    "radeontop"
+    "screen"
+    "stow"
+    "tree"
+    "unzip"
+    "yt-dlp")))
+ (services
+  (list
+   ;; Core Services:
+   (service home-dbus-service-type)
+   (service home-pipewire-service-type)
+   ;; Guix Channels:
+   (simple-service 'guixrus-service
+                   home-channels-service-type
+                   (list
+                    (channel
+                     (name 'nonguix)
+                     (url "https://gitlab.com/nonguix/nonguix")
+                     ;; Enable signature verification:
+                     (introduction
+                      (make-channel-introduction
+                       "897c1a470da759236cc11798f4e0a5f7d4d59fbc"
+                       (openpgp-fingerprint
+                        "2A39 3FFF 68F4 EF7A 3D29  12AF 6F51 20A0 22FB B2D5"))))))
+   ;; GPG Agent:
+   (service home-gpg-agent-service-type
+            (home-gpg-agent-configuration
+             (pinentry-program
+              (file-append pinentry-emacs "/bin/pinentry-emacs"))
+             (ssh-support? #t)))
+   ;; Shell Configuration:
+   (service home-zsh-service-type
+            (home-zsh-configuration
+             (zprofile
+              (list (local-file "../../.zprofile" "zprofile")))
+             (zshrc
+              (list (local-file "../../.zshrc" "zshrc"))))))))
