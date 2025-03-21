@@ -24,14 +24,17 @@
     "wofi"
     "xdg-desktop-portal"
     "xdg-desktop-portal-wlr"
-    ;; Browsers and Media Players:
+    ;; Browsers:
+    "librewolf"
+    "nyxt"
+    "ungoogled-chromium-wayland"
+    ;; Media viewers:
     "feh"
+    "mpv"
+    ;; Media:
     "ffmpegthumbnailer"
     "imagemagick"
-    "librewolf"
     "mediainfo"
-    "mpv"
-    "nyxt"
     "poppler"
     ;; Creative Software:
     "krita"
@@ -63,17 +66,21 @@
     "wireshark"
     ;; Terminal Utilities:
     "alacritty"
+    "file"
     "gnupg"
     "htop"
     "neofetch"
+    "nfs-utils"
     "p7zip"
     "passff-host"
     "password-store"
     "radeontop"
     "screen"
+    "setxkbmap"
     "stow"
     "tree"
     "unzip"
+    "xlsclients"
     "yt-dlp")))
  (services
   (list
