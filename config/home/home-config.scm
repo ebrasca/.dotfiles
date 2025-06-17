@@ -13,7 +13,7 @@
  (packages
   (specifications->packages
    (list
-    ;; Wayland related:
+    ;; Window Management
     "grim"
     "pipewire"
     "pulsemixer"
@@ -24,64 +24,70 @@
     "wofi"
     "xdg-desktop-portal"
     "xdg-desktop-portal-wlr"
-    ;; Browsers:
+    ;; Applications
+    ;; Browsers
+    "firefox"
     "librewolf"
     "nyxt"
     "ungoogled-chromium-wayland"
-    ;; Media viewers:
+    ;; Media
     "feh"
-    "mpv"
-    ;; Media:
     "ffmpegthumbnailer"
     "imagemagick"
-    "mediainfo"
-    "poppler"
-    ;; Creative Software:
     "krita"
+    "mediainfo"
+    "mpv"
     "obs"
     "obs-vkcapture"
     "obs-wlrobs"
-    ;; Communication:
-    ;; "gajim"
+    "poppler"
+    ;; Communication
+    "gajim"
     "qtox"
-    ;; Gaming:
+    ;; Gaming
     "steam"
-    ;; Development:
+    ;; Development
     "cmake"
     "emacs-pgtk"
     "gcc-toolchain"
     "git"
+    "git-lfs"
     "libvterm"
+    "llama-cpp"
     "make"
     "openssl"
     "pinentry-emacs"
     "sbcl"
-    ;; Virtualization:
-    "qemu"
-    ;; Networking:
+    ;; Utilities
+    ;; Network
     "nmap"
     "openssh"
     "sshfs"
     "tigervnc-client"
     "wireshark"
-    ;; Terminal Utilities:
-    "alacritty"
+    ;; CLI Tools
     "file"
-    "gnupg"
     "htop"
     "neofetch"
     "nfs-utils"
     "p7zip"
-    "passff-host"
-    "password-store"
     "radeontop"
-    "screen"
     "setxkbmap"
     "stow"
     "tree"
     "unzip"
     "xlsclients"
-    "yt-dlp")))
+    "yt-dlp"
+    ;; Security
+    "gnupg"
+    "passff-host"
+    "password-store"
+    ;; Terminal
+    "alacritty"
+    "nushell"
+    "screen"
+    ;; Virtualization
+    "qemu")))
  (services
   (list
    ;; Core Services:
