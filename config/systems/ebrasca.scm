@@ -31,7 +31,7 @@
              (list (static-networking
                     (addresses
                      (list (network-address
-                            (device "enp5s0")
+                            (device "enp7s0")
                             (value "192.168.10.2/24"))))
                     (routes
                      (list (network-route
