@@ -17,9 +17,14 @@ if [ ! -d "$ZSH/zsh-autosuggestions" ]; then
   git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH/zsh-autosuggestions
 fi
 
+if [ ! -d "$ZSH/zsh-syntax-highlighting" ]; then
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH/zsh-syntax-highlighting
+fi
+
 # Source plugins and configurations
 source $HOME/.profile
 source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # ======================
 # Keybindings
