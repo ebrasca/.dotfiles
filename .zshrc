@@ -32,7 +32,7 @@ bindkey -e
 # History Configuration
 # ======================
 
-HISTFILE="$HOME/.zhistory"
+HISTFILE="$HOME/.private/.zhistory"
 HISTSIZE=64000
 SAVEHIST=32000
 
