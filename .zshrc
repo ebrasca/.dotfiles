@@ -124,6 +124,7 @@ update-home() {
 }
 dla() {
     yt-dlp --download-archive index --batch-file channels \
+           --sponsorblock-remove sponsor,intro,outro,selfpromo \
            --output "%(uploader)s/%(uploader)s - %(upload_date)s - %(title)s [%(id)s].%(ext)s" \
            --restrict-filenames \
            --sleep-requests 1.5 --min-sleep-interval 60 --max-sleep-interval 90
