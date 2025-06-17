@@ -571,3 +571,7 @@
 ;; Undo tree
 (use-package vundo
   :custom (vundo-glyph-alist vundo-unicode-symbols))
+
+(use-package esup
+  :custom
+  (esup-depth 0))
