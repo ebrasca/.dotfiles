@@ -1,0 +1,30 @@
+{
+  "wireplumber#input": {
+    "format-source": " {volume}%",
+    "format-source-muted": " off",
+    "format": "{format_source}",
+    "max-volume": 100,
+    "on-click-middle": "pavucontrol",
+    "on-click": "qpwgraph",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+",
+    "on-scroll-down": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%-"
+  },
+
+  "wireplumber#output": {
+    "format": "{icon} {volume}%",
+    "format-muted": " off",
+    "format-icons": ["", "", ""],
+    "max-volume": 100,
+    "on-click-middle": "pavucontrol",
+    "on-click": "qpwgraph",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
+  },
+
+  "group/media": {
+    "orientation": "horizontal",
+    "modules": ["wireplumber#input", "wireplumber#output"]
+  }
+}

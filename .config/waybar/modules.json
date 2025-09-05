@@ -1,0 +1,91 @@
+{
+  "custom/appmenu": {
+    "format": "󰣇",
+    "on-click": "wofi --show drun",
+    "tooltip": false
+  },
+
+  "tray": {
+    "icon-size": 24,
+    "spacing": 8
+  },
+
+  "hyprland/language": {
+    "format": "{}",
+    "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next"
+  },
+
+  "hyprland/workspaces": {
+    "format": "{name}: {icon}",
+    "format-icons": {
+      "urgent": "",
+      "active": "",
+      "default": ""
+    }
+  },
+
+  "hyprland/window": {
+    "format": "{}",
+    "separate-outputs": true
+  },
+
+  "custom/notification": {
+    "tooltip": false,
+    // "format": "{} {icon}",
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "󱅫",
+      "none": "󰂚",
+      "dnd-notification": "󱅫",
+      "dnd-none": "󰂛",
+      "inhibited-notification": "",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+
+  "keyboard-state": {
+    "numlock": true,
+    "capslock": true,
+    "format": "{name} {icon}",
+    "format-icons": {
+      "locked": "",
+      "unlocked": ""
+    }
+  },
+
+  // TODO
+  "custom/exit": {
+    "format": "",
+    "tooltip-format": "Powermenu",
+    "on-click": "alacritty -e sudo shutdown",
+    "tooltip": false
+  },
+
+  "clock": {
+    "format": "󰥔 {0:%a %H:%M}",
+    "format-alt": "󰥔 {0:L%H:%M}   {0:%d-%m-%Y}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "locale": "en_GB.UTF-8",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+  },
+}

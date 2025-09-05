@@ -15,21 +15,21 @@
    (list
     ;; Window Management
     "grim"
+    "hyprland"
+    "hyprpaper"
     "pipewire"
     "pulsemixer"
     "qpwgraph"
     "slurp"
-    "sway"
     "swaynotificationcenter"
+    "waybar"
+    "wireplumber"
     "wofi"
     "xdg-desktop-portal"
-    "xdg-desktop-portal-wlr"
+    "xdg-desktop-portal-hyprland"
     ;; Applications
     ;; Browsers
     "firefox"
-    "librewolf"
-    "nyxt"
-    "ungoogled-chromium-wayland"
     ;; Media
     "feh"
     "ffmpegthumbnailer"
@@ -53,7 +53,6 @@
     "git"
     "git-lfs"
     "libvterm"
-    "llama-cpp"
     "make"
     "openssl"
     "pinentry-emacs"
@@ -66,6 +65,7 @@
     "tigervnc-client"
     "wireshark"
     ;; CLI Tools
+    "compsize"
     "file"
     "htop"
     "neofetch"
@@ -75,6 +75,7 @@
     "setxkbmap"
     "stow"
     "tree"
+    "unison"
     "unzip"
     "xlsclients"
     "yt-dlp"

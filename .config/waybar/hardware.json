@@ -1,0 +1,55 @@
+{
+  "network": {
+    "interval": 1,
+    "format": " {bandwidthUpBytes}  {bandwidthDownBytes}",
+    "format-disconnected": "󰌙",
+    "tooltip-format": "{ipaddr} {ifname}",
+    "tooltip-format-disconnected": "󰌙 Disconnected",
+    "min-length": 21,
+    "max-length": 21,
+    "on-click-right": "kitty nmtui"
+  },
+
+  "cpu": {
+    "interval": 1,
+    "format": " {usage}",
+    "min-length": 7,
+    "max-length": 7,
+    "on-click": "alacritty -e htop"
+  },
+
+  "memory": {
+    "interval": 1,
+    "format": " {percentage}",
+    "tooltip-format": "{used}GiB / {total}GiB",
+    "min-length": 7,
+    "max-length": 7,
+    "on-click": "alacritty -e htop"
+  },
+
+  "disk": {
+    "interval": 1,
+    "format": "󰋊 {percentage_used}",
+    "tooltip-format": "{used} / {total}",
+    "path": "/",
+    "min-length": 7,
+    "max-length": 7,
+    "on-click": "alacritty -e htop"
+  },
+
+  "temperature": {
+    "thermal-zone": 2,
+    "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    "critical-threshold": 80,
+    "format": " {temperatureC}°C",
+    "format-critical": " {temperatureC}°C",
+    "min-length": 7,
+    "max-length": 7,
+    "on-click": "alacritty -e watch -n 1 sensors"
+  },
+
+  "group/hardware": {
+    "orientation": "horizontal",
+    "modules": ["network", "cpu", "memory", "disk", "temperature"]
+  }
+}

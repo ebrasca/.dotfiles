@@ -1,7 +1,3 @@
-export GDK_BACKEND=wayland
-export XDG_SESSION_TYPE=wayland
-export XDG_CURRENT_DESKTOP=sway
-
 # Set up the system, user profile, and related variables.
 source /etc/profile
 # Set up the home environment profile.
@@ -11,5 +7,3 @@ source ~/.profile
 HOME_ENVIRONMENT=$HOME/.guix-home
 . $HOME_ENVIRONMENT/setup-environment
 $HOME_ENVIRONMENT/on-first-login
-
-sway

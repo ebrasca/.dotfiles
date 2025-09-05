@@ -1,0 +1,29 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 16,
+  "spacing": 4,
+  "mode": "dock",
+  "include": [
+    "~/.config/waybar/modules.json",
+    "~/.config/waybar/hardware.json",
+    "~/.config/waybar/media.json"
+  ],
+  "modules-left": [
+    "custom/appmenu",
+    "tray",
+    "hyprland/language",
+    "hyprland/workspaces"
+  ],
+  "modules-center": [
+    "hyprland/window"
+  ],
+  "modules-right": [
+    "group/media",
+    "group/hardware",
+    "clock",
+    "custom/notification",
+    "keyboard-state",
+    "custom/exit"
+  ]
+}
