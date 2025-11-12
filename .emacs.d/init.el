@@ -407,8 +407,6 @@
 
 ;; Common Lisp IDE
 (use-package slime
-  :straight nil
-  :init (load "~/quicklisp/slime-helper.el")
   :custom
   (indent-tabs-mode nil)
   (slime-auto-select-connection 'always)
