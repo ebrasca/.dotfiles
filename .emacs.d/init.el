@@ -14,7 +14,6 @@
               indent-tabs-mode nil                   ; Stop using tabs to indent
               inhibit-startup-screen t               ; Disable start-up screen
               initial-scratch-message ""             ; Empty the initial *scratch* buffer
-              initial-major-mode #'org-mode          ; Prefer `org-mode' for *scratch*
               large-file-warning-threshold nil       ; Silence warnings for large files
               mouse-yank-at-point t                  ; Yank at point rather than pointer
               read-process-output-max (* 1024 1024)  ; Increase read size for data chunks
@@ -137,6 +136,8 @@
 ;; Org mode
 (use-package org
   :custom
+  ;; Prefer `org-mode' for *scratch*
+  (initial-major-mode #'org-mode)
   ;; Clocking Work Time
   (org-clock-persist 'history)
   ;; Log
