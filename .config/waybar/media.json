@@ -1,24 +1,26 @@
 {
   "wireplumber#input": {
     "format-source": " {volume}%",
-    "format-source-muted": " off",
+    "format-source-muted": " <span color='#bf616a'>MUTED</span>",
     "format": "{format_source}",
+    "tooltip-format": "Mic: {volume}%\n{node_name}",
     "max-volume": 100,
-    "on-click-middle": "pavucontrol",
-    "on-click": "qpwgraph",
-    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-click": "pavucontrol",
+    "on-click-middle": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-click-right": "helvum",
     "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+",
     "on-scroll-down": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%-"
   },
 
   "wireplumber#output": {
     "format": "{icon} {volume}%",
-    "format-muted": " off",
+    "format-muted": " <span color='#bf616a'>MUTED</span>",
     "format-icons": ["", "", ""],
+    "tooltip-format": "Audio: {volume}%\n{node_name}",
     "max-volume": 100,
-    "on-click-middle": "pavucontrol",
-    "on-click": "qpwgraph",
-    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click": "pavucontrol",
+    "on-click-middle": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "helvum",
     "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
     "on-scroll-down": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
   },
