@@ -32,6 +32,7 @@
     ;; Browsers
     "firefox"
     ;; Media
+    "blender"
     "feh"
     "ffmpegthumbnailer"
     "imagemagick"
@@ -50,10 +51,12 @@
     ;; Development
     "cmake"
     "emacs-pgtk"
+    "flamegraph"
     "gcc-toolchain"
     "git"
     "git-lfs"
     "libvterm"
+    "llama-cpp"
     "make"
     "openssl"
     "pinentry-emacs"
