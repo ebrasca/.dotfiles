@@ -31,7 +31,7 @@
              (list (static-networking
                     (addresses
                      (list (network-address
-                            (device "enp7s0")
+                            (device "enp8s0")
                             (value "192.168.10.2/24"))))
                     (routes
                      (list (network-route
@@ -58,15 +58,11 @@
               (bootloader grub-efi-bootloader)
               (targets (list "/boot/efi"))
               (keyboard-layout system-keyboard-layout)))
- (swap-devices
-  (list
-   (swap-space
-    (target (uuid "3555454f-3805-4cc5-916f-2a32a97a7623")))))
  (file-systems
   (append
    (list (file-system
           (mount-point "/")
-          (device (uuid "b37ea359-649c-446d-a1dc-c168d6fab6a5"
+          (device (uuid "442f0f54-7c9f-43b3-868e-bdbdbbefd1dc"
                         'btrfs))
           (type "btrfs")
           (options "compress-force=zstd:3,ssd,subvol=/"))
