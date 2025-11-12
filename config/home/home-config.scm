@@ -15,11 +15,12 @@
    (list
     ;; Window Management
     "grim"
+    "helvum"
     "hyprland"
     "hyprpaper"
+    "pavucontrol"
     "pipewire"
     "pulsemixer"
-    "qpwgraph"
     "slurp"
     "swaynotificationcenter"
     "waybar"
