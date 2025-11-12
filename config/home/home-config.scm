@@ -72,6 +72,7 @@
     "compsize"
     "file"
     "htop"
+    "lm-sensors"
     "neofetch"
     "nfs-utils"
     "p7zip"
