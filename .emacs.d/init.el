@@ -293,21 +293,6 @@
   (dirvish-peek-mode)
   (dirvish-side-follow-mode))
 
-;; Clean up Emacs config directory
-(use-package no-littering)
-
-;;;-----------------------------------------------------------------------------
-;;; Package Management
-;;;-----------------------------------------------------------------------------
-
-;; Auto update packages
-(use-package auto-package-update
-  :config
-  (auto-package-update-maybe)
-  :custom
-  (auto-package-update-delete-old-versions t)
-  (auto-package-update-interval 4))
-
 ;;;-----------------------------------------------------------------------------
 ;;; Terminal and Shell Integration
 ;;;-----------------------------------------------------------------------------
