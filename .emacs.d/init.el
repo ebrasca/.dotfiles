@@ -282,7 +282,11 @@
   :config
   (setq dirvish-mode-line-format '(:left (sort symlink) :right (omit yank index))
         dirvish-mode-line-height 10
-        dirvish-attributes '(nerd-icons file-time file-size collapse subtree-state vc-state git-msg)
+        ;; dirvish-attributes '(nerd-icons file-time file-size collapse subtree-state vc-state git-msg)
+        dirvish-attributes
+        (append
+         '(vc-state subtree-state nerd-icons collapse)
+         '(git-msg file-modes file-time file-size))
         dirvish-subtree-state-style 'nerd
         delete-by-moving-to-trash t
         dirvish-path-separators (list
