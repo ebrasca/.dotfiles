@@ -446,7 +446,6 @@
 
 ;; IRC client
 (use-package erc
-  :defer 3
   :preface
   (require 'subr-x)
   (defun my/erc-notify (nickname message)
