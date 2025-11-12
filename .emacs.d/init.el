@@ -106,7 +106,6 @@
 ;;; Package Management
 ;;;-----------------------------------------------------------------------------
 
-;; Bootstrap straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
@@ -123,11 +122,11 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-;; Load use-package
-(use-package use-package
-  :custom
-  (straight-use-package-by-default t)
-  (use-package-verbose t))
+;; (require 'use-package-ensure)
+;; (setq use-package-always-ensure t)
+(setq straight-use-package-by-default t)
+
+(straight-use-package 'use-package)
 
 ;;;-----------------------------------------------------------------------------
 ;;; Org-Mode and Productivity
