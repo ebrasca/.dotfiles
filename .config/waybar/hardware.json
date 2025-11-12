@@ -3,38 +3,46 @@
     "interval": 1,
     "format": " {bandwidthUpBytes}  {bandwidthDownBytes}",
     "format-disconnected": "󰌙",
-    "tooltip-format": "{ipaddr} {ifname}",
-    "tooltip-format-disconnected": "󰌙 Disconnected",
+    "tooltip-format": "{ifname}\nIP: {ipaddr}\nUp: {bandwidthUpBytes}\nDown: {bandwidthDownBytes}",
+    "tooltip-format-disconnected": "󰌙 Disconnected\n{essid}",
     "min-length": 21,
     "max-length": 21,
-    "on-click-right": "kitty nmtui"
+    "on-click-right": "kitty nmtui",
+    "on-scroll-up": "",
+    "on-scroll-down": ""
   },
 
   "cpu": {
     "interval": 1,
-    "format": " {usage}",
+    "format": " {usage}%",
     "min-length": 7,
     "max-length": 7,
-    "on-click": "alacritty -e htop"
+    "on-click": "alacritty -e htop",
+    "on-scroll-up": "",
+    "on-scroll-down": ""
   },
 
   "memory": {
     "interval": 1,
-    "format": " {percentage}",
-    "tooltip-format": "{used}GiB / {total}GiB",
+    "format": " {percentage}%",
+    "tooltip-format": "Used: {used}GiB\nTotal: {total}GiB\nPercentage: {percentage}%",
     "min-length": 7,
     "max-length": 7,
-    "on-click": "alacritty -e htop"
+    "on-click": "alacritty -e htop",
+    "on-scroll-up": "",
+    "on-scroll-down": ""
   },
 
   "disk": {
     "interval": 1,
-    "format": "󰋊 {percentage_used}",
-    "tooltip-format": "{used} / {total}",
+    "format": "󰋊 {percentage_used}%",
+    "tooltip-format": "Mount: {path}\nUsed: {used}\nTotal: {total}\nFree: {free} ({percentage_free}%)",
     "path": "/",
     "min-length": 7,
     "max-length": 7,
-    "on-click": "alacritty -e htop"
+    "on-click": "alacritty -e htop",
+    "on-scroll-up": "",
+    "on-scroll-down": ""
   },
 
   "temperature": {
@@ -43,9 +51,12 @@
     "critical-threshold": 80,
     "format": " {temperatureC}°C",
     "format-critical": " {temperatureC}°C",
+    "tooltip-format": "CPU: {temperatureC}°C",
     "min-length": 7,
     "max-length": 7,
-    "on-click": "alacritty -e watch -n 1 sensors"
+    "on-click": "alacritty -e watch -n 1 sensors",
+    "on-scroll-up": "",
+    "on-scroll-down": ""
   },
 
   "group/hardware": {
