@@ -257,9 +257,6 @@
 ;; Icons
 (use-package nerd-icons)
 
-(use-package nerd-icons-dired
-  :hook (dired-mode . nerd-icons-dired-mode))
-
 (use-package nerd-icons-ibuffer
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
@@ -287,21 +284,22 @@
 (use-package dirvish
   :init
   (dirvish-override-dired-mode)
-  :config
-  (setq dirvish-mode-line-format '(:left (sort symlink) :right (omit yank index))
-        dirvish-mode-line-height 10
-        ;; dirvish-attributes '(nerd-icons file-time file-size collapse subtree-state vc-state git-msg)
-        dirvish-attributes
-        (append
-         '(vc-state subtree-state nerd-icons collapse)
-         '(git-msg file-modes file-time file-size))
-        dirvish-subtree-state-style 'nerd
-        delete-by-moving-to-trash t
-        dirvish-path-separators (list
-                                 (format " %s " (nerd-icons-codicon "nf-cod-home"))
+  :custom
+  (dirvish-attributes '(nerd-icons file-size file-time git-msg file-modes vc-state subtree-state))
+  ;;(dirvish-attributes '(vc-state subtree-state nerd-icons git-msg file-modes file-time file-size))
+  (dirvish-default-layout '(0 0.4 0.6))
+  (dirvish-header-line-format '(:left (path) :right (free-space)))
+  (dirvish-mode-line-format '(:left (sort file-time file-size symlink) :right (omit yank index)))
+  (dirvish-mode-line-height 10)
+  (dirvish-mode-line-bar-image-width 0)
+  (dirvish-path-separators (list (format " %s " (nerd-icons-codicon "nf-cod-home"))
                                  (format " %s " (nerd-icons-codicon "nf-cod-root_folder"))
-                                 (format " %s " (nerd-icons-faicon  "nf-fa-angle_right")))
-        dired-listing-switches "-l --almost-all --human-readable --group-directories-first --no-group")
+                                 (format " %s " (nerd-icons-faicon "nf-fa-angle_right"))))
+  (dirvish-subtree-state-style 'nerd)
+  (dirvish-use-header-line 'global)
+  (delete-by-moving-to-trash nil)
+  (dired-listing-switches "-l --almost-all --human-readable --group-directories-first --no-group")
+  :config
   (dirvish-peek-mode)
   (dirvish-side-follow-mode))
 

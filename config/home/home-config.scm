@@ -43,6 +43,7 @@
     "obs-vkcapture"
     "obs-wlrobs"
     "poppler"
+    "vips"
     ;; Communication
     "gajim"
     "qtox"
@@ -69,19 +70,18 @@
     "tigervnc-client"
     "wireshark"
     ;; CLI Tools
+    "7zip"
     "compsize"
     "file"
     "htop"
     "lm-sensors"
     "neofetch"
     "nfs-utils"
-    "p7zip"
     "radeontop"
     "setxkbmap"
     "stow"
     "tree"
     "unison"
-    "unzip"
     "xlsclients"
     "yt-dlp"
     ;; Security
