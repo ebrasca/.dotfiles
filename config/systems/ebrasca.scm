@@ -22,6 +22,7 @@
  (services
   (append
    (list
+    (service linux-services:earlyoom-service-type)
     ;; File System Services
     (service fstrim-service-type)
     (service nfs-service-type
@@ -50,7 +51,29 @@
                  (allowed-ips '("10.0.0.0/24"))))))))
    system-base-services))
  (kernel linux)
- (kernel-arguments '("amdgpu.ppfeaturemask=0xfff7ffff"))
+ (kernel-arguments
+  '(;; ─── Boot and General ─────────────────────────────────────────────
+    "quiet"                             ; Minimize boot output
+    "splash"                            ; Graphical splash screen
+    "noatime"                           ; Disable file access time updates
+    ;; ─── CPU and Memory Security ─────────────────────────────────────
+    "kptr_restrict=2"                   ; Hide kernel pointers
+    "lockdown=confidentiality"          ; Kernel lockdown
+    "module.sig_enforce=1"              ; Enforce signed modules
+    "page_alloc.shuffle=1"              ; Enable randomize page allocator
+    "preempt=full"                      ; Full preemption
+    "pti=on"                            ; Enable kernel Page Table Isolation
+    "randomize_kstack_offset=on"        ; Randomize kernel stack
+    "transparent_hugepage=always"       ; Enable hugepages
+    "vsyscall=none"                     ; Disable vsyscall
+    ;; ─── AMD GPU Tuning ─────────────────────────────────────────────
+    ;;"amdgpu.ppfeaturemask=0xffffffff" ; Unlock all features
+    ;; "amdgpu.gpu_recovery=1"          ; GPU recovery
+    ;;"amdgpu.dcfeaturemask=0xffffffff" ; All Display Core features
+    ;; ─── IOMMU and Virtualization ───────────────────────────────────
+    "amd_iommu=on"                   ; Enable AMD IOMMU
+    "iommu=pt"                       ; Passthrough mode
+    ))
  (initrd microcode-initrd)
  (firmware (list linux-firmware amdgpu-firmware))
  (kernel-loadable-modules (list v4l2loopback-linux-module))
@@ -68,7 +91,7 @@
           (options "compress-force=zstd:3,ssd,subvol=/"))
          (file-system
           (mount-point "/boot/efi")
-          (device (uuid "8CB1-CA12"
+          (device (uuid "EA15-6EDE"
                         'fat32))
           (type "vfat"))
          ;; TODO
