@@ -40,9 +40,11 @@
     "mediainfo"
     "mpv"
     "obs"
+    "obs-pipewire-audio-capture"
     "obs-vkcapture"
     "obs-wlrobs"
     "poppler"
+    "v4l2loopback-linux-module"
     "vips"
     ;; Communication
     "gajim"
