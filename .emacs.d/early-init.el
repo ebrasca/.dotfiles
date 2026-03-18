@@ -25,7 +25,7 @@
               uniquify-buffer-name-style 'forward    ; Uniquify buffer names
               use-dialog-box nil                     ; Disable dialog windows
               use-short-answers t                    ; Replace yes/no prompts with y/n
-              vc-follow-symlinks nil                 ; Silence warnings for following symlinked files
+              vc-follow-symlinks t                   ; Silence warnings for following symlinked files
               ;; Disable backup files
               backup-inhibited t
               make-backup-files nil
