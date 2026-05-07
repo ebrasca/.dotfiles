@@ -168,13 +168,14 @@
 ;;; File and Directory Management
 ;;;-----------------------------------------------------------------------------
 
+;; TDOO: Open files with correct app
 ;; Enhanced Dired
 (use-package dirvish
   :init
   (dirvish-override-dired-mode)
   :custom
-  (dirvish-attributes '(nerd-icons file-size file-time git-msg file-modes vc-state subtree-state))
-  ;;(dirvish-attributes '(vc-state subtree-state nerd-icons git-msg file-modes file-time file-size))
+  (dirvish-attributes '(vc-state subtree-state nerd-icons git-msg file-size file-time file-modes))
+  (dirvish-side-attributes '(vc-state subtree-state nerd-icons))
   (dirvish-default-layout '(0 0.4 0.6))
   (dirvish-header-line-format '(:left (path) :right (free-space)))
   (dirvish-mode-line-format '(:left (sort file-time file-size symlink) :right (omit yank index)))
@@ -185,11 +186,33 @@
                                  (format " %s " (nerd-icons-faicon "nf-fa-angle_right"))))
   (dirvish-subtree-state-style 'nerd)
   (dirvish-use-header-line 'global)
+  (dirvish-reuse-session nil)
+  (dirvish-large-directory-threshold 20000)
   (delete-by-moving-to-trash nil)
   (dired-listing-switches "-l --almost-all --human-readable --group-directories-first --no-group")
-  :config
-  (dirvish-peek-mode)
-  (dirvish-side-follow-mode))
+  (dirvish-quick-access-entries
+   '(("h" "~/"                          "Home")
+     ("d" "~/Downloads/"                "Downloads")
+     ("m" "/mnt/"                       "Drives")))
+  :bind (("C-c f" . dirvish)
+         :map dirvish-mode-map               ; Dirvish inherits `dired-mode-map'
+         (";"   . dired-up-directory)        ; So you can adjust `dired' bindings here
+         ("?"   . dirvish-dispatch)          ; [?] a helpful cheatsheet
+         ("a"   . dirvish-setup-menu)        ; [a]ttributes settings:`t' toggles mtime, `f' toggles fullframe, etc.
+         ("f"   . dirvish-file-info-menu)    ; [f]ile info
+         ("o"   . dirvish-quick-access)      ; [o]pen `dirvish-quick-access-entries'
+         ("s"   . dirvish-quicksort)         ; [s]ort flie list
+         ("r"   . dirvish-history-jump)      ; [r]ecent visited
+         ("l"   . dirvish-ls-switches-menu)  ; [l]s command flags
+         ("v"   . dirvish-vc-menu)           ; [v]ersion control commands
+         ("*"   . dirvish-mark-menu)
+         ("y"   . dirvish-yank-menu)
+         ("N"   . dirvish-narrow)
+         ("^"   . dirvish-history-last)
+         ("TAB" . dirvish-subtree-toggle)
+         ("M-f" . dirvish-history-go-forward)
+         ("M-b" . dirvish-history-go-backward)
+         ("M-e" . dirvish-emerge-menu)))
 
 ;;;-----------------------------------------------------------------------------
 ;;; Terminal and Shell Integration
