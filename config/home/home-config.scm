@@ -32,6 +32,7 @@
     ;; Applications
     ;; Browsers
     "firefox"
+    "torbrowser"
     ;; Media
     "blender"
     "feh"
