@@ -21,6 +21,7 @@
     "pavucontrol"
     "pipewire"
     "pulsemixer"
+    "mpvpaper"
     "slurp"
     "swaynotificationcenter"
     "waybar"
