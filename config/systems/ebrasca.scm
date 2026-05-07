@@ -48,15 +48,15 @@
                  (name "TalosII")
                  (endpoint "171.25.198.58:51820")
                  (public-key "6tZyIItXjmQXvoyBrAZRm/Xmcbc4vuVti7odD8AUgQg=")
-                 (allowed-ips '("10.0.0.0/24"))))))))
+                 (allowed-ips '("10.0.0.1/24"))))))))
    system-base-services))
  (kernel linux)
  (kernel-arguments
-  '(;; ─── Boot and General ─────────────────────────────────────────────
+  '(;; Boot and General
     "quiet"                             ; Minimize boot output
     "splash"                            ; Graphical splash screen
     "noatime"                           ; Disable file access time updates
-    ;; ─── CPU and Memory Security ─────────────────────────────────────
+    ;; CPU and Memory Security
     "kptr_restrict=2"                   ; Hide kernel pointers
     "lockdown=confidentiality"          ; Kernel lockdown
     "module.sig_enforce=1"              ; Enforce signed modules
@@ -66,11 +66,13 @@
     "randomize_kstack_offset=on"        ; Randomize kernel stack
     "transparent_hugepage=always"       ; Enable hugepages
     "vsyscall=none"                     ; Disable vsyscall
-    ;; ─── AMD GPU Tuning ─────────────────────────────────────────────
-    ;;"amdgpu.ppfeaturemask=0xffffffff" ; Unlock all features
+    ;; AMD CPU
+    "amd_pstate=active"
+    ;; AMD GPU Tuning
+    "amdgpu.ppfeaturemask=0xffffffff"   ; Unlock all features
     ;; "amdgpu.gpu_recovery=1"          ; GPU recovery
     ;;"amdgpu.dcfeaturemask=0xffffffff" ; All Display Core features
-    ;; ─── IOMMU and Virtualization ───────────────────────────────────
+    ;; IOMMU and Virtualization
     "amd_iommu=on"                   ; Enable AMD IOMMU
     "iommu=pt"                       ; Passthrough mode
     ))
