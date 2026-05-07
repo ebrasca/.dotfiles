@@ -22,7 +22,7 @@
  (services
   (append
    (list
-    (service linux-services:earlyoom-service-type)
+    (service earlyoom-service-type)
     ;; File System Services
     (service fstrim-service-type)
     (service nfs-service-type
