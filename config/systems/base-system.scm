@@ -70,6 +70,7 @@
     ;; Desktop Services:
     (service dbus-root-service-type)
     (service seatd-service-type)
+    (service polkit-service-type)
     fontconfig-file-system-service ;; <<<
     ;; Hardware Services:
     (service upower-service-type)
