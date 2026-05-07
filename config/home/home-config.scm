@@ -92,6 +92,7 @@
     "gnupg"
     "passff-host"
     "password-store"
+    "pass-otp" "zbar"
     ;; Terminal
     "alacritty"
     "nushell"
