@@ -455,3 +455,5 @@
 (use-package esup
   :custom
   (esup-depth 0))
+
+(use-package pass)
