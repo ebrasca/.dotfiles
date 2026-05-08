@@ -123,6 +123,11 @@
   ;; I use C-c c to start capture mode
   (global-set-key (kbd "C-c c") 'org-capture))
 
+;; Modern style for Org mode
+(use-package org-modern
+  :init
+  (global-org-modern-mode))
+
 ;; Spaced repetition learning
 (use-package org-drill
   :after org)
