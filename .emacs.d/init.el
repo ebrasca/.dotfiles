@@ -275,6 +275,11 @@
 ;;; Version Control
 ;;;-----------------------------------------------------------------------------
 
+;; Get repo URL for a buffer location
+(use-package git-link
+  :config
+  (global-set-key (kbd "C-c g l") 'git-link))
+
 ;; Shows Git diff indicators in the margin
 (use-package git-gutter
   :config (global-git-gutter-mode t))
