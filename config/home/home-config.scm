@@ -78,6 +78,7 @@
     "compsize"
     "file"
     "htop"
+    "ispell"
     "lm-sensors"
     "neofetch"
     "nfs-utils"
