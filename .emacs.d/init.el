@@ -86,14 +86,12 @@
      ("p" "Phone call" entry (file "~/org/refile.org")
       "* PHONE %?" :clock-in t :clock-resume t)
      ("h" "Habit" entry (file "~/org/refile.org")
-      "* NEXT %?
-  %U
+      "* TODO %?
   SCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")
-  :LOGBOOK:
-  :END:
   :PROPERTIES:
   :STYLE: habit
-  :REPEAT_TO_STATE: NEXT
+  :END:
+  :LOGBOOK:
   :END:")
      ("c" "Contacts" entry (file "~/org/contacts.org")
       "* Contact
@@ -113,6 +111,11 @@
   (org-refile-allow-creating-parent-nodes 'confirm)
   ;; Use IDO for both buffer and file completion
   (org-completion-use-ido t)
+  ;; Org Habit display preferences
+  (org-habit-graph-column 80)
+  (org-habit-preceding-days 31)
+  (org-habit-following-days 31)
+  (org-habit-show-habits-only-for-today nil)
   :config
   ;; Clocking Work Time
   (org-clock-persistence-insinuate)
