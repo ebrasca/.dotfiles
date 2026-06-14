@@ -226,9 +226,11 @@
 ;; Terminal emulation
 (use-package vterm
   :custom
-  (vterm-tramp-shells '(("docker" "/bin/zsh")))
+  (vterm-always-compile-module t)
+  (vterm-clear-scrollback-when-clearing t)
   (vterm-kill-buffer-on-exit t)
-  (vterm-max-scrollback 1000))
+  (vterm-max-scrollback 10000)
+  (vterm-tramp-shells '(("docker" "/bin/zsh"))))
 
 (use-package multi-vterm
   :bind (:map global-map
