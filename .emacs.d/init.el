@@ -41,6 +41,8 @@
   (org-log-reschedule 'logreschedule)
   (org-deadline-warning-days 30)
   (org-enforce-todo-dependencies t)
+  ;; Agenda
+  (org-agenda-window-setup 'current-window)
   (org-agenda-todo-ignore-with-date nil)
   (org-agenda-todo-ignore-deadlines nil)
   (org-agenda-todo-ignore-scheduled nil)
@@ -115,6 +117,7 @@
   (org-habit-graph-column 80)
   (org-habit-preceding-days 31)
   (org-habit-following-days 31)
+  (org-habit-show-done-always-green t)
   (org-habit-show-habits-only-for-today nil)
   :config
   ;; Clocking Work Time
