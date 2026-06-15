@@ -289,8 +289,6 @@
   :config (which-key-mode)
   :custom (which-key-idle-delay 0.5))
 
-(use-package free-keys)
-
 ;;;-----------------------------------------------------------------------------
 ;;; Version Control
 ;;;-----------------------------------------------------------------------------
@@ -507,3 +505,5 @@
   (esup-depth 0))
 
 (use-package pass)
+
+(use-package free-keys)
