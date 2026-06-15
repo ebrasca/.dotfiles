@@ -142,6 +142,17 @@
 ;;; UI and Visual Enhancements
 ;;;-----------------------------------------------------------------------------
 
+(use-package dashboard
+  :custom
+  (initial-buffer-choice 'dashboard-open)
+  (dashboard-display-icons-p t)
+  (dashboard-icon-type 'nerd-icons)
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
+  (dashboard-week-agenda t)
+  :config
+  (dashboard-setup-startup-hook))
+
 ;; Themes
 (use-package doom-themes
   :config
