@@ -15,56 +15,17 @@
              (greetd-configuration
               (greeter-supplementary-groups (list "video" "input" "seat"))
               (terminals
-               (list
-                (greetd-terminal-configuration
-                 (extra-shepherd-requirement '(seatd))
-                 (terminal-vt "1")
-                 (terminal-switch #t)
-                 (default-session-command
-                   (greetd-agreety-session
-                    (command
-                     (greetd-user-session
-                      (command system-main-user-shell))))))
-                (greetd-terminal-configuration
-                 (extra-shepherd-requirement '(seatd))
-                 (terminal-vt "2")
-                 (default-session-command
-                   (greetd-agreety-session
-                    (command
-                     (greetd-user-session
-                      (command system-main-user-shell))))))
-                (greetd-terminal-configuration
-                 (extra-shepherd-requirement '(seatd))
-                 (terminal-vt "3")
-                 (default-session-command
-                   (greetd-agreety-session
-                    (command
-                     (greetd-user-session
-                      (command system-main-user-shell))))))
-                (greetd-terminal-configuration
-                 (extra-shepherd-requirement '(seatd))
-                 (terminal-vt "4")
-                 (default-session-command
-                   (greetd-agreety-session
-                    (command
-                     (greetd-user-session
-                      (command system-main-user-shell))))))
-                (greetd-terminal-configuration
-                 (extra-shepherd-requirement '(seatd))
-                 (terminal-vt "5")
-                 (default-session-command
-                   (greetd-agreety-session
-                    (command
-                     (greetd-user-session
-                      (command system-main-user-shell))))))
-                (greetd-terminal-configuration
-                 (extra-shepherd-requirement '(seatd))
-                 (terminal-vt "6")
-                 (default-session-command
-                   (greetd-agreety-session
-                    (command
-                     (greetd-user-session
-                      (command system-main-user-shell))))))))))
+               (map (lambda (vt)
+                      (greetd-terminal-configuration
+                       (extra-shepherd-requirement '(seatd))
+                       (terminal-vt vt)
+                       (terminal-switch (string=? vt "1"))
+                       (default-session-command
+                         (greetd-agreety-session
+                          (command
+                           (greetd-user-session
+                            (command system-main-user-shell)))))))
+                     '("1" "2" "3" "4" "5" "6")))))
     ;; Time Services:
     (service ntp-service-type)
     ;; Desktop Services:
