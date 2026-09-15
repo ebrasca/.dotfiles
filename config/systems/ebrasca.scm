@@ -22,6 +22,10 @@
  (services
   (append
    (list
+    ;; Kernel modules
+    (service kernel-module-loader-service-type
+             '("v4l2loopback"))
+    ;; System
     (service earlyoom-service-type)
     ;; File System Services
     (service fstrim-service-type)
