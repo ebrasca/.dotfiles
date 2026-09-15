@@ -22,12 +22,12 @@
  (services
   (append
    (list
-    ;; Kernel modules
+    ;; Kernel modules:
     (service kernel-module-loader-service-type
              '("v4l2loopback"))
-    ;; System
+    ;; System:
     (service earlyoom-service-type)
-    ;; File System Services
+    ;; File System Services:
     (service fstrim-service-type)
     (service nfs-service-type
              (nfs-configuration))
@@ -79,7 +79,6 @@
     ;; vfio-pci.ids=...
     ;; Watchdog
     "nowatchdog"                       ; disable NMI watchdog (saves timer ticks)
-    ;;"amdgpu.ppfeaturemask=0xfff7ffff"   ; Unlock PP_OVERDRIVE_MASK
     ))
  (initrd microcode-initrd)
  (firmware (list linux-firmware amdgpu-firmware))
