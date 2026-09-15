@@ -52,29 +52,30 @@
    system-base-services))
  (kernel linux)
  (kernel-arguments
-  '(;; Boot and General
-    "quiet"                             ; Minimize boot output
-    "splash"                            ; Graphical splash screen
-    "noatime"                           ; Disable file access time updates
-    ;; CPU and Memory Security
-    "kptr_restrict=2"                   ; Hide kernel pointers
-    "lockdown=confidentiality"          ; Kernel lockdown
-    "module.sig_enforce=1"              ; Enforce signed modules
-    "page_alloc.shuffle=1"              ; Enable randomize page allocator
-    "preempt=full"                      ; Full preemption
-    "pti=on"                            ; Enable kernel Page Table Isolation
-    "randomize_kstack_offset=on"        ; Randomize kernel stack
-    "transparent_hugepage=always"       ; Enable hugepages
-    "vsyscall=none"                     ; Disable vsyscall
-    ;; AMD CPU
-    "amd_pstate=active"
-    ;; AMD GPU Tuning
-    "amdgpu.ppfeaturemask=0xffffffff"   ; Unlock all features
-    ;; "amdgpu.gpu_recovery=1"          ; GPU recovery
-    ;;"amdgpu.dcfeaturemask=0xffffffff" ; All Display Core features
-    ;; IOMMU and Virtualization
-    "amd_iommu=on"                   ; Enable AMD IOMMU
-    "iommu=pt"                       ; Passthrough mode
+  '(;; Boot & console
+    "quiet"                            ; minimize boot output
+    ;; Kernel hardening
+    "kptr_restrict=2"                  ; hide kernel pointers from unprivileged users
+    "lockdown=confidentiality"         ; block kexec / kernel-mem reads / unsigned modules
+    "module.sig_enforce=1"             ; only load signed modules
+    "randomize_kstack_offset=on"       ; randomize kernel stack offset per syscall
+    "vsyscall=none"                    ; disable legacy vsyscall page (ROP target)
+    ;; Memory & paging
+    "page_alloc.shuffle=1"             ; randomize buddy allocator freelists
+    "transparent_hugepage=always"      ; THP for TLB / CPU perf (96 GB RAM)
+    ;; CPU (AMD Zen)
+    "amd_pstate=active"                ; AMD P-State driver (best on Zen 4/5)
+    "preempt=full"                     ; full preemption (desktop latency)
+    ;; GPU (AMD)
+    "amdgpu.ppfeaturemask=0xfff7ffff"  ; default mask + PP_OVERDRIVE_MASK
+    "amdgpu.gpu_recovery=1"            ; auto-recover from GPU hangs
+    ;; IOMMU / virtualization
+    "amd_iommu=on"                     ; enable AMD IOMMU
+    "iommu=pt"                         ; passthrough mode for trusted devices
+    ;; vfio-pci.ids=...
+    ;; Watchdog
+    "nowatchdog"                       ; disable NMI watchdog (saves timer ticks)
+    ;;"amdgpu.ppfeaturemask=0xfff7ffff"   ; Unlock PP_OVERDRIVE_MASK
     ))
  (initrd microcode-initrd)
  (firmware (list linux-firmware amdgpu-firmware))
