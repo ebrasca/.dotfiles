@@ -106,7 +106,7 @@
    (service home-dbus-service-type)
    (service home-pipewire-service-type)
    ;; Guix Channels:
-   (simple-service 'guixrus-service
+   (simple-service 'nonguix-service
                    home-channels-service-type
                    (list
                     (channel
